@@ -1,0 +1,14 @@
+<h5 class="my-0 mr-md-auto font-weight-normal">
+  <%= link_to "Fakebook", root_url, id: "logo" %>
+</h5>
+<nav class="my-2 my-md-0 mr-md-3">
+    <%if user_signed_in? %>
+    <%= link_to "My posts", dashboard_path, class: "p-2 text-dark" %>
+    <%= link_to "Create Post", new_post_path, class: "p-2 text-dark" %>
+    <%= link_to "Profile", "#", class: "p-2 text-dark" %>
+    <%= link_to "Log out", sign_out_path, class: "btn btn-outline-secondary p-2 text-dark", id: "logout", method: :delete %>
+    <% else %>
+    <%= link_to "Log in", new_user_session_path, class: "p-2 text-dark" %>
+    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-primary" %>
+    <% end %>   
+</nav>
