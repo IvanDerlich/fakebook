@@ -60,10 +60,9 @@ development:
 test:
   <<: *default
   database: odin_facebook_test
-  username: <%= ENV['ODIN_FACEBOOK_USERNAME'] %>
-
+  username: postgres
   # The password associated with the postgres role (username).
-  password: <%= ENV['ODIN_FACEBOOK_DATABASE_PASSWORD'] %>
+  #password: <%= ENV['ODIN_FACEBOOK_DATABASE_PASSWORD'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
