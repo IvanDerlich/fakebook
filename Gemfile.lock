@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rspec/rspec-core.git
-  revision: 07aa08b97926ce3ccf0798490bd8568219dc2117
+  revision: 0d27b29083a6969ed4d3b386b71c0f6d4571c04d
   branch: master
   specs:
     rspec-core (3.10.0.pre)
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-expectations.git
-  revision: 33e3c614f82be81f81e09f8725b6bc450f7c40d0
+  revision: c085c5a6f0678ae7f88a489996e391e6b661d8a9
   branch: master
   specs:
     rspec-expectations (3.10.0.pre)
@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-mocks.git
-  revision: b934fafd2b0699df8a18f6a590530c08a3a9508e
+  revision: 8efc835c14eb411cf5f8b160de7e0b992ce79c31
   branch: master
   specs:
     rspec-mocks (3.10.0.pre)
@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-support.git
-  revision: a87275efff996096d29a5bdbf5d7dd9b785107a0
+  revision: 596198a74e6942fb9de253e590aaa71e1bf3b9d4
   branch: master
   specs:
     rspec-support (3.10.0.pre)
@@ -112,7 +112,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.0.1)
-    capybara (3.29.0)
+    capybara (3.30.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -131,7 +131,12 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.3)
     erubi (1.9.0)
-    faker (2.9.0)
+    factory_bot (5.1.1)
+      activesupport (>= 4.2.0)
+    factory_bot_rails (5.1.1)
+      factory_bot (~> 5.1.0)
+      railties (>= 4.2.0)
+    faker (2.10.0)
       i18n (>= 1.6, < 1.8)
     faraday (0.17.1)
       multipart-post (>= 1.2, < 3)
@@ -184,10 +189,10 @@ GEM
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
     parallel (1.19.1)
-    parser (2.6.5.0)
+    parser (2.7.0.1)
       ast (~> 2.4.0)
-    pg (1.1.4)
-    public_suffix (4.0.1)
+    pg (1.2.0)
+    public_suffix (4.0.2)
     puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.8)
@@ -224,7 +229,7 @@ GEM
     rainbow (3.0.0)
     rake (13.0.1)
     rb-fsevent (0.10.3)
-    rb-inotify (0.10.0)
+    rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.6.0)
     responders (3.0.0)
@@ -250,7 +255,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.6)
+    selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     sprockets (4.0.0)
@@ -266,7 +271,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.5)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
     warden (1.2.8)
@@ -276,7 +281,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (4.1.3)
+    webdrivers (4.2.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
@@ -300,6 +305,7 @@ DEPENDENCIES
   byebug
   capybara
   devise
+  factory_bot_rails
   faker
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
