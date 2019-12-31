@@ -1,6 +1,7 @@
 <% @posts.each do |post| %>
-  <article class="p-2">
-    <p><%= post.user.first_name %></p>
+  <article class="p-2 border rounded mb-3">
+    <p class="m-0 p-0"><%= post.user.first_name %> shared a post</p>
+    <p class="small"><%= post.created_at.to_date %> at <%= post.created_at.hour %>:<%= post.created_at.min %></p>
     <p><%= post.text %></p>
   </article>
 <% end %>
