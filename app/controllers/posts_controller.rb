@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create, :destroy]
   def index
-    @posts = Post.all
+    @posts = Post.all.order('created_at desc')
   end
 
   def new
@@ -12,7 +12,6 @@ class PostsController < ApplicationController
     post = current_user.posts.build(post_params)
 
     if post.save
-      flash[:success] = "Post created!"
       redirect_to root_url
     else
       render 'new'
