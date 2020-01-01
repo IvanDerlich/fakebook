@@ -1,0 +1,12 @@
+<% if !@users.empty? %>
+  <section>
+    <h2 class="h4">Users list</h2>
+    <% @users.each do |u| %>
+      <ul>
+        <li>
+          @<%= u.first_name %><%= u.last_name %>
+        </li>
+      </ul>
+    <% end %> 
+  </section>
+<% end %>
