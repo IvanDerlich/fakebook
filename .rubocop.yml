@@ -7,7 +7,7 @@ AllCops:
     - "Rakefile"
     - "Gemfile"
     - "node_modules/**/*"
-
+    - "spec/**/*"
   DisplayCopNames: true
 
 Metrics/LineLength:

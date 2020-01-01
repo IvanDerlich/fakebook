@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new, :create, :destroy]
+  before_action :authenticate_user!, only: %i[index new create destroy]
   def index
     @posts = Post.all.order('created_at desc')
   end
@@ -18,10 +20,10 @@ class PostsController < ApplicationController
     end
   end
 
-  def destroy
-  end
+  def destroy; end
 
   private
+
   def post_params
     params.require(:post).permit(:text)
   end

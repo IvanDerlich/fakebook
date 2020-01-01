@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it '#creates valid users from factorybot' do
+  it '#creates valid user from factorybot' do
     user = build(:user)
     expect(user).to be_valid
   end
@@ -12,8 +12,6 @@ RSpec.describe User, type: :model do
     user.valid?
     expect(user.errors[:email]).to include('is too long (maximum is 255 characters)')
   end
-
-
 
   it 'blank user is invalid' do
     user = User.new
@@ -52,6 +50,5 @@ RSpec.describe User, type: :model do
       end
     end
   end
-  
 end
 
