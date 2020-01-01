@@ -8,6 +8,7 @@ AllCops:
     - "Gemfile"
     - "node_modules/**/*"
     - "spec/**/*"
+    - "spec/*"
   DisplayCopNames: true
 
 Metrics/LineLength:
