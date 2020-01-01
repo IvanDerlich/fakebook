@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-mocks.git
-  revision: 8efc835c14eb411cf5f8b160de7e0b992ce79c31
+  revision: e6057a61d8a15c4638dec116f68579d83fdd5ad5
   branch: master
   specs:
     rspec-mocks (3.10.0.pre)
@@ -123,6 +123,7 @@ GEM
     childprocess (3.0.0)
     concurrent-ruby (1.1.5)
     crass (1.0.5)
+    database_cleaner (1.7.0)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -138,7 +139,7 @@ GEM
       railties (>= 4.2.0)
     faker (2.10.0)
       i18n (>= 1.6, < 1.8)
-    faraday (0.17.1)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.3)
     globalid (0.4.2)
@@ -304,6 +305,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara
+  database_cleaner
   devise
   factory_bot_rails
   faker
