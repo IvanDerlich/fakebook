@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
   get 'dashboard', to: 'users#show'
   resources :posts
+  get 'users', to: 'users#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'posts#index'
 end
-
