@@ -22,4 +22,18 @@ RSpec.describe Post, type: :model do
     user.valid?
     expect(user).to be_valid
   end
+
+  it 'creates a successful post' do
+    user = FactoryBot.create(:user)
+    post = user.posts.create({ text: "This is a valid post" })
+    post.valid?
+    expect(post).to be_valid
+  end
+
+  it 'fails to create an invalid post' do
+    user = FactoryBot.create(:user)
+    post = user.posts.create({ text: "T" })
+    post.valid?
+    expect(post).to_not be_valid
+  end
 end
