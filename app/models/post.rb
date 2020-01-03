@@ -5,5 +5,5 @@ class Post < ApplicationRecord
   has_many :comments
   has_many :likes
   validates :text, :user_id, presence: true
-  validates :text, length: { in: 15..300 }
+  validates :text, length: { in: 5..300 }
 end
