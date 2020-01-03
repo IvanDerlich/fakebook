@@ -2,9 +2,16 @@
   <section>
     <h2 class="h4">Users list</h2>
     <% @users.each do |u| %>
-      <ul>
+      <ul class="list-unstyled">
         <li>
-          @<%= u.first_name %><%= u.last_name %>
+          <div class="row border-bottom pb-3">
+            <div class="col-3 d-flex align-items-center">
+              @<%= u.first_name %> <%= u.last_name %>
+            </div>
+            <div class="col-3">
+              <%= link_to  "Send friendship request", "#", class: 'btn btn-primary btn-small' %>
+            </div>
+          </div>
         </li>
       </ul>
     <% end %> 
