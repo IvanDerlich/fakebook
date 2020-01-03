@@ -1,5 +1,5 @@
 <div class="p-2">
-  <h2 class="h5">Create post</h2>
+  <h2 class="h5">Create post</h2> <em>5 characters minimum</em>
   <%= form_for(@post, url: posts_url, html: { class: "w-100" }) do |f| %>
     <%= f.text_area :text, class: 'form-control', placeholder: "What are you thinking, #{current_user.first_name} ?" %>
     <div class="d-flex justify-content-end py-2">
