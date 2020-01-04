@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'users#show'
   resources :posts do
     resources :comments, skip: [:index, :new]
+    resources :likes, only: [:new]
   end
   
   get 'users', to: 'users#index'
