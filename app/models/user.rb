@@ -15,4 +15,24 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
+
+  def comments_a_post(post, text) 
+    self.comments.create!(
+      post: post,
+      text: text
+    )    
+  end 
+
+  def likes(post)
+    Like.create!(
+      post: post
+    )
+  end
+
+  def sends_frienship_request ()
+  end
+
+  def befriends ()
+  end
+
 end
