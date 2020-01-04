@@ -1,0 +1,12 @@
+<% if !object.empty? %>
+  <% object.each do |comment| %>
+    <div class="p-2 border border-radius"> 
+      <p class="font-weight-bold"> 
+        <%= comment.user.first_name %>
+      </p>
+      <p>
+        <%= comment.text %>
+      </p>
+    </div>
+  <% end %>
+<% end %>
