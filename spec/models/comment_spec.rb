@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Comment, type: :model do    
     
     let(:comment) {
-        FactoryBot.create(:comment)
+        FactoryBot.create(:random_comment)
     }
 
     it '# creates a valid comment' do
