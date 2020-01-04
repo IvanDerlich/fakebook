@@ -5,7 +5,7 @@
     <p><%= post.text %></p>
     <%= render 'comments/comments', object: post.comments %>
     <%= render 'comments/comment_form', object: post %>  
-    <% link_to "Like", "#"%> 
-    <% link_to "Comment", "#"%> 
+    <%= link_to "Like", "#"%> 
+    <%= link_to "Comment", "#"%> 
   </article>
 <% end %>
