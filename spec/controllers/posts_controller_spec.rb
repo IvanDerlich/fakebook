@@ -3,7 +3,7 @@ require 'rails_helper'
 # Change this ArticlesController to your project
 RSpec.describe PostsController, type: :controller do
 	
-	user = FactoryBot.create(:user)
+	user = FactoryBot.create(:random_user)
 	login_user(user)
 
 	let(:valid_post_attributes) {

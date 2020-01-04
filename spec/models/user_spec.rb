@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it '#creates valid user from factorybot' do
-    user = build(:user)
+    user = build(:random_user)
     expect(user).to be_valid
   end
 
   it 'is invalid with email length more than 255' do
     email = 'k' * (256 - 11)
-    user = build(:user, email: "#{email}@example.com")
+    user = build(:random_user, email: "#{email}@example.com")
     user.valid?
     expect(user.errors[:email]).to include('is too long (maximum is 255 characters)')
   end
@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'valid post association' do
-    user = create(:user)
+    user = create(:random_user)
     post = user.posts.build({text: "This is a test description"})
     post.valid?
     expect(post).to be_valid
@@ -45,7 +45,7 @@ RSpec.describe User, type: :model do
 
     it 'is invalid with invalid email formats' do
       invalid_emails.each do |email|
-        user = build(:user, email: email)
+        user = build(:random_user, email: email)
         expect(user).to_not be_valid
       end
     end

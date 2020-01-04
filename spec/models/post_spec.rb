@@ -16,7 +16,7 @@ RSpec.describe Post, type: :model do
   end
 
   it 'valid user association' do
-    user = create(:user)
+    user = create(:random_user)
     post = user.posts.build({text: "This is a test description"})
     user = post.user
     user.valid?
@@ -24,14 +24,14 @@ RSpec.describe Post, type: :model do
   end
 
   it 'creates a successful post' do
-    user = FactoryBot.create(:user)
+    user = FactoryBot.create(:random_user)
     post = user.posts.create({ text: "This is a valid post" })
     post.valid?
     expect(post).to be_valid
   end
 
   it 'fails to create an invalid post' do
-    user = FactoryBot.create(:user)
+    user = FactoryBot.create(:random_user)
     post = user.posts.create({ text: "T" })
     post.valid?
     expect(post).to_not be_valid
