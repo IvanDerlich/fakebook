@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Like, type: :model do 
 
-    let(:like) {
-        FactoryBot.create(:like)
-    }
+    let(:like) { FactoryBot.create(:like) }
 
     it '# creates a valid like' do
         expect(like).to be_valid
