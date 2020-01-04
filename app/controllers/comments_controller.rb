@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, only: %i[create]
   before_action :get_post
+  
 
   def create
     @comment = @post.comments.build(comment_params)
