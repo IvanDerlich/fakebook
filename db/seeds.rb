@@ -32,7 +32,7 @@ users = User.order(:created_at).take(6)
 50.times do
     users.each do |u|
         u.posts.create!(
-        text: Faker::Lorem.paragraph(sentence_count: 2)
+        text: Faker::Lorem.paragraph_by_chars(number: 30, supplemental: false)        
         )
     end
 end

@@ -4,6 +4,8 @@
     <p class="small"><%= post.created_at.to_date %> at <%= post.created_at.hour %>:<%= post.created_at.min %></p>
     <p><%= post.text %></p>
     <%= render 'comments/comments', object: post.comments %>
-    <%= render 'comments/comment_form', object: post %>
+    <%= render 'comments/comment_form', object: post %>  
+    <% link_to "Like", "#"%> 
+    <% link_to "Comment", "#"%> 
   </article>
 <% end %>

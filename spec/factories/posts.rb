@@ -1,8 +1,10 @@
 require 'factory_bot'
 FactoryBot.define do
+
     factory :post do            
-      text {"Factory bot post"}
-      association :user, factory: :random_user      
+      text {Faker::Lorem.paragraph_by_chars(number: 30, supplemental: false)}      
+      association :user, factory: :user      
     end
+    
 end
   
