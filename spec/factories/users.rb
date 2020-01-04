@@ -7,7 +7,7 @@ FactoryBot.define do
     email { Faker::Internet.safe_email }
     phone_number {Faker::PhoneNumber.phone_number}
     password {Faker::Lorem.characters(number: 10)}
-  end
+  end 
 
 end
   

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User likes post/s', type: :feature do
+RSpec.describe 'User-Likes-Post', type: :feature do
 
 	scenario '# post gets a user to like it' do
 
@@ -17,6 +17,10 @@ RSpec.describe 'User likes post/s', type: :feature do
 	end
 
 	scenario '# user likes 5 posts' do
+	
+	end
+
+	scenario '# user likes the same post twice and gets an error message' do
 	
 	end
 
