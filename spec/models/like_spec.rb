@@ -20,7 +20,7 @@ RSpec.describe Like, type: :model do
         expect(like).to_not be_valid
     end
 
-    it '# invalid like that neither to a post nor to a user ' do
+    it '# invalid like that neither has a post nor a user ' do
         like.post = like.user = nil
         expect(like).to_not be_valid
     end   
