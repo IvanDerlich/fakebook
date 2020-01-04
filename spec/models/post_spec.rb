@@ -37,14 +37,14 @@ RSpec.describe Post, type: :model do
     expect(post).to_not be_valid
   end
 
-  it 'is invalid with text length less than 15' do
-    text = Faker::Lorem.paragraph_by_chars(number: 14, supplemental: false)
+  it 'is invalid with text length less than 5' do
+    text = Faker::Lorem.paragraph_by_chars(number: 4, supplemental: false)
     post = Post.new(text: text, user_id: 1)
     post.valid?
-    expect(post.errors[:text]).to include('is too long (maximum is 300 characters)')
+    expect(post.errors[:text]).to include('is too short (minimum is 5 characters)')
   end
 
-  it 'create a valid random post' do
+  xit 'create a valid random post' do
    
   end
 end

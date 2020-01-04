@@ -5,10 +5,9 @@ require 'rails_helper'
 RSpec.describe 'Log in and out', type: :feature do
   scenario '# successfull login followed by logout' do
     user = create(:user)
-    expect(user.first_name).to match('Ignacio')
     visit new_user_session_path
     fill_in 'Email', with: user.email
-    fill_in 'Password', with: 'laralala'
+    fill_in 'Password', with: user.password
     click_button 'Log in'
     expect(page).to have_content('All posts')
     click_on 'Log out'
