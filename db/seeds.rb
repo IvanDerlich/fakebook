@@ -14,7 +14,7 @@ user.posts.create!(
   text: "This is my first post"
 )
 
-99.times do |n|      
+49.times do |n|      
     password = "password123"
 
     User.create!(
@@ -27,7 +27,10 @@ user.posts.create!(
     )
 end
   
-users = User.order(:created_at).take(6)
+#<comment> make those 6 users random: random_users_1
+users = User.order(:created_at).take(6) 
+#https://hashrocket.com/blog/posts/rails-quick-tips-random-records
+#</comment>
   
 50.times do
     users.each do |u|
@@ -36,3 +39,35 @@ users = User.order(:created_at).take(6)
         )
     end
 end
+
+#------
+
+#grab 6 random posts (random_posts_1)
+
+#comment them once with random_users_1 and random_posts_1
+
+#------
+
+#grab 6 random posts (random_posts_2)
+#grab 6 random users (random_users_2)
+
+#comment them twice with random_post_2 and random_users_2
+
+#------
+
+#grab 6 random posts (random_posts_3)
+#grab 6 random users (random_users_3)
+
+#like them once with random_users_3 and random_posts_3
+
+#------
+
+#grab 6 random posts (random_posts_4)
+#grab 6 random users (random_users_4)
+
+#comment them twice with random_post_4 and random_users_4
+#------
+
+#make this seed file multiple files by creating a seed folder and including every file in this files
+
+
