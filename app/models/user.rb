@@ -16,12 +16,12 @@ class User < ApplicationRecord
   has_many :comments
   has_many :likes
 
-  def comments_a_post(post, text) 
-    self.comments.create!(
+  def comments_a_post(post, text)
+    comments.create!(
       post: post,
       text: text
-    )    
-  end 
+    )
+  end
 
   def likes(post)
     Like.create!(
@@ -29,10 +29,7 @@ class User < ApplicationRecord
     )
   end
 
-  def sends_frienship_request ()
-  end
+  def sends_frienship_request; end
 
-  def befriends ()
-  end
-
+  def befriends; end
 end
