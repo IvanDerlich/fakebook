@@ -8,13 +8,8 @@ class Friendship < ApplicationRecord
       errors.add :confirmed, 'confirmed cannot be nil'
     end
   end
-<<<<<<< HEAD
-=======
 
   def accept
     confirmed.toggle
   end
-
-
->>>>>>> cbe2664f8cae024f8aadb4c95ad22800cdf37b00
 end
