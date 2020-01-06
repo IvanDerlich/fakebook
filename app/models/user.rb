@@ -80,10 +80,9 @@ class User < ApplicationRecord
     friendship.save
   end
 
-  def sends_friendship_request(receiver)
-    self.sent_friendships.create!(
-      friend: receiver,
-      confirmed: false
+  def request_friendship(receiver)
+    sent_friendships.create!(
+      friend: receiver
     )
   end
 
