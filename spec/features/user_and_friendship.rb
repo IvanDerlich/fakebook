@@ -4,25 +4,28 @@ require 'rails_helper'
 
 RSpec.describe 'User-Friendship', type: :feature do
 
-  # create a sender user from factory
-  # create a receiver user from factory
-  # create a list of 5 users from factory -> receiver list
-  # create a list of 5 users from factory -> sender list
+  let(:sender){ FactoryBot.create(:random_user)}
+  let(:receiver){ FactoryBot.create(:random_user)}
+  let(:receiver_user_list) { FactoryBot.create_list(:random_user,5) }
+  let(:sender_user_list) { FactoryBot.create_list(:random_user,5) }  
 
-  pending "# users sends a request to another user" do
-    # sender asserts 0 friendships
-    # sender sends request to receiver
-
-    # sender asserts one unconfirmed friendship using a user method from the model
-    # receiver asserts one unconfirmed friendship using a user method from the model
+  scenario "# users sends a request to another user" do
+    expect(sender.confirmed_sent_and_received_friendships.length).to be(0)                                                          
+    expect(sender.unconfirmed_sent_and_received_friendships.length).to be(0)
     
+    sender.sends_friendship_request(receiver)    
+
+    expect(sender.unconfirmed_sent_friendships.length).to be(1)    
+    expect(receiver.unconfirmed_received_friendships.length).to be(1)
+    
+    puts receiver.unconfirmed_received_friendships.first.class
     # receiver confirms the request
     
     # sender asserts one confirmed friendship using a user method from the model
     # receiver asserts one confirmed friendship using a user method from the model
   end
 
-  pending "# user sends a request to 5 other users" do
+  xit "# user sends a request to 5 other users" do
     # sender asserts 0 unconfirmed friendships
     # sender creates 5 unconfirmed friendships
     # sender asserts 5 unconfirmed frienships    
@@ -39,7 +42,7 @@ RSpec.describe 'User-Friendship', type: :feature do
     # sender asserts 5 confirmed frienships and 0 unconfirmed friendship
   end
 
-  pending "# user receives requests from 5 different users" do
+  xit "# user receives requests from 5 different users" do
     # receivers asserts 0 unconfirmed frienships
     # receiver receives the 5 unconfirmed friendships from 5 different users
     # receiver asserts 5 unconfirmed friendships
@@ -58,11 +61,11 @@ RSpec.describe 'User-Friendship', type: :feature do
 
   # tests below are for the 6th milestone
 
-  pending "# user sends invalid request to itself" do
+  xit "# user sends invalid request to itself" do
 
   end
 
-  pending "# user sends invalid request twice to another user" do
+  xit "# user sends invalid request twice to another user" do
     
   end
 
