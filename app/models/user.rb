@@ -23,8 +23,8 @@ class User < ApplicationRecord
     )    
   end 
 
-  def likes(post)
-    Like.create!(
+  def likes_post(post)
+    self.likes.create!(
       post: post
     )
   end
