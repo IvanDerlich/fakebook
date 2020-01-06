@@ -16,7 +16,7 @@ class User < ApplicationRecord
   has_many :comments
   has_many :likes
 
-  def comments_a_post(post, text)
+  def comments_post(post, text)
     comments.create!(
       post: post,
       text: text
