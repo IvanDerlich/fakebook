@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
+  has_many :sent_friendships , :class_name => "Friendship", :foreign_key => "user_id"
+  has_many :received_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
 
   def comments_post(post, text)
     comments.create!(
