@@ -13,6 +13,7 @@ RSpec.describe Friendship, type: :model do
     expect(confirmed_friendship).to be_valid
   end
 
+<<<<<<< HEAD
   xit '# invalid like that belongs to user but not to a post' do
       like.post = nil
       expect(like).to_not be_valid
@@ -21,6 +22,23 @@ RSpec.describe Friendship, type: :model do
   xit '# invalid like that belongs to post but not to a user ' do
       like.user = nil
       expect(like).to_not be_valid
+=======
+  xit "# see all requests sent" do
+    
+  end
+  xit "# see all requests received" do
+    
+  end
+
+  xit "# see all requests sent and requests received" do
+  end 
+
+  # 6th milestone
+  xit "# user sends invalid request to itself" do
+  end
+
+  xit "# user sends invalid request twice to another user" do
+>>>>>>> refs/remotes/origin/5th-milestone-friendships-v1
   end
 
   xit '# invalid like that neither has a post nor a user ' do
