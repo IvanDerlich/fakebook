@@ -8,6 +8,4 @@ class Friendship < ApplicationRecord
       errors.add :confirmed, 'confirmed cannot be nil'
     end
   end
-
-
 end

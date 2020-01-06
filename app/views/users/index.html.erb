@@ -3,16 +3,18 @@
     <h2 class="h4">Users list</h2>
     <% @users.each do |u| %>
       <ul class="list-unstyled">
-        <li>
-          <div class="row border-bottom pb-3">
-            <div class="col-3 d-flex align-items-center">
-              @<%= u.first_name %> <%= u.last_name %>
+        <% if u != current_user%>
+          <li>
+            <div class="row border-bottom pb-3">
+              <div class="col-3 d-flex align-items-center">
+                @<%= u.first_name %> <%= u.last_name %>
+              </div>
+              <div class="col-3">
+                <%= link_to some_text(current_user.sent_friendships, u), new_friendship_path, class: 'btn btn-primary btn-small' %>
+              </div>
             </div>
-            <div class="col-3">
-              <%= link_to  "Send friendship request", "#", class: 'btn btn-primary btn-small' %>
-            </div>
-          </div>
-        </li>
+          </li>
+        <% end %>
       </ul>
     <% end %> 
   </section>
