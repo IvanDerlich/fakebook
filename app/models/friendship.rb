@@ -9,5 +9,9 @@ class Friendship < ApplicationRecord
     end
   end
 
+  def accept
+    confirmed.toggle
+  end
+
 
 end
