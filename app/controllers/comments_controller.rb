@@ -1,14 +1,13 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create]
-  before_action :get_post
-  
+  before_action :find_post
 
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
-    if @comment.save
-      redirect_to posts_path
-    end
+    redirect_to posts_path if @comment.save
   end
 
   private
@@ -17,7 +16,7 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:text)
   end
 
-  def get_post
+  def find_post
     @post = Post.find(params[:post_id])
   end
 end
