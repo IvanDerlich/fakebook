@@ -3,7 +3,7 @@ random_users = User.order("RANDOM()").take(6)
 
 random_posts.each do |post|
   random_users.each do |user|
-    user.comments_a_post(
+    user.comments_post(
       post,
       Faker::Lorem.paragraph_by_chars(number: 30, supplemental: false)
     )
@@ -16,7 +16,7 @@ random_users = User.order("RANDOM()").take(6)
 random_posts.each do |post|
   random_users.each do |user|
     2.times do
-      user.comments_a_post(
+      user.comments_post(
         post,
         Faker::Lorem.paragraph_by_chars(number: 30, supplemental: false)
       )
@@ -30,7 +30,7 @@ random_users = User.order("RANDOM()").take(6)
 random_posts.each do |post|
   random_users.each do |user|
     3.times do
-      user.comments_a_post(
+      user.comments_post(
         post,
         Faker::Lorem.paragraph_by_chars(number: 30, supplemental: false)
       )
