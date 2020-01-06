@@ -31,7 +31,11 @@ class User < ApplicationRecord
     )
   end
 
-  def sends_frienship_request; end
+  def request_friendship(user)
+    sent_friendships.create!(
+      friend: user
+    )
+  end
 
   def befriends; end
 end
