@@ -6,5 +6,6 @@ class CreateFriendships < ActiveRecord::Migration[6.0]
       t.boolean :confirmed
       t.timestamps null: false
     end
+    change_column_default :friendships, :confirmed, false
   end
 end
