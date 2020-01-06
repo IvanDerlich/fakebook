@@ -30,8 +30,65 @@ class User < ApplicationRecord
       post: post
     )
   end
+  
+  def confirmed_friends
+    confirmed_friends_array = sent_friendships.map{|friendship| 
+      friendship.friend if friendship.confirmed
+    }
+    confirmed_friends_array + received_friendships.map{|friendship| 
+      friendship.user if friendship.confirmed
+    }
+    confirmed_friends_array.compact
+  end
 
-  def sends_frienship_request; end
+  def confirmed_sent_and_received_friendships
+    confirmed_friendships_array = sent_friendships.map{|friendship| 
+      friendship if friendship.confirmed
+    }
+    confirmed_friendships_array + received_friendships.map{|friendship| 
+      friendship if friendship.confirmed
+    }
+    confirmed_friendships_array.compact
+  end
 
-  def befriends; end
+  def unconfirmed_sent_and_received_friendships
+    unconfirmed_friendships_array = sent_friendships.map{|friendship| 
+      friendship.friend unless friendship.confirmed
+    }
+    unconfirmed_friendships_array + received_friendships.map{|friendship| 
+      friendship.user unless friendship.confirmed
+    }
+    unconfirmed_friendships_array.compact
+  end
+
+  def unconfirmed_sent_friendships
+    sent_friendships.map{|friendship| 
+      friendship.friend unless friendship.confirmed
+    }.compact    
+  end
+
+  def unconfirmed_received_friendships
+    received_friendships.map{|friendship|
+       friendship.user unless friendship.confirmed
+    }.compact
+  end
+  
+  def confirms_friendship(friendship)
+  #def confirms_friendship(user)
+    #friendship = inverse_friendships.find{|friendship| friendship.user == user}
+    friendship.confirmed = true
+    friendship.save
+  end
+
+  def sends_friendship_request(receiver)
+    self.sent_friendships.create!(
+      friend: receiver,
+      confirmed: false
+    )
+  end
+
+  #checks if a user is a friend or not
+  def friend?(user)
+    friends.include?(user)
+  end    
 end
