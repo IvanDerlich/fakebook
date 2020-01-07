@@ -10,6 +10,7 @@ class Friendship < ApplicationRecord
   end
 
   def accept
-    confirmed.toggle
-  end
+    confirmed.toggle  
+  end  
+
 end

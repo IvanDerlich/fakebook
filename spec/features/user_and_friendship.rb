@@ -9,17 +9,37 @@ RSpec.describe 'User-Friendship', type: :feature do
   let(:receiver_user_list) { FactoryBot.create_list(:random_user,5) }
   let(:sender_user_list) { FactoryBot.create_list(:random_user,5) }  
 
-  scenario "# users sends a request to another user" do
-    expect(sender.confirmed_sent_and_received_friendships.length).to be(0)                                                          
-    expect(sender.unconfirmed_sent_and_received_friendships.length).to be(0)
+  scenario "# users sends a request to another user" do     
     
-    sender.sends_friendship_request(receiver)    
+    expect(sender.confirmed_friends.first).to eq(nil) 
+    expect(receiver.confirmed_friends.first).to eq(nil)  
 
-    expect(sender.unconfirmed_sent_friendships.length).to be(1)    
-    expect(receiver.unconfirmed_received_friendships.length).to be(1)
+    expect(sender.unconfirmed_sent_friendships_users.first).to eq(nil)
+    expect(receiver.unconfirmed_sent_friendships_users.first).to eq(nil)
+
+    expect(sender.friend_requests.first).to eq(nil)
+    expect(receiver.friend_requests.first).to eq(nil)
+        
+    friendship = sender.requests_friendship(receiver) 
+
+    expect(friendship.user).to eq(sender)
+    expect(friendship.friend).to eq(receiver)
+    expect(friendship.confirmed).to eq(false)
+
+    expect(sender.confirmed_friends.first).to eq(nil) 
+    expect(receiver.confirmed_friends.first).to eq(nil)  
+
+    expect(sender.unconfirmed_sent_friendships_users.first).to eq(receiver)
+    expect(receiver.unconfirmed_sent_friendships_users.first).to eq(nil)
+
+    expect(sender.friend_requests.first).to eq(nil)
+    byebug
+    expect(receiver.friend_requests.first).to eq(sender)  
+
+    #friendship.accept
     
-    puts receiver.unconfirmed_received_friendships.first.class
-    # receiver confirms the request
+    # test confirmed friends in sender
+    # test confirmed friends in receiver
     
     # sender asserts one confirmed friendship using a user method from the model
     # receiver asserts one confirmed friendship using a user method from the model
