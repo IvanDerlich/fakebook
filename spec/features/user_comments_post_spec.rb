@@ -11,7 +11,7 @@ RSpec.describe 'User-Comments-Post', type: :feature do
 
 
 	scenario '# user comments one post' do
-		comment = user.comments_a_post(
+		comment = user.comments_post(
 			post, 			
 			Faker::Lorem.paragraph_by_chars(number: 40, supplemental: false)
 		)
@@ -20,21 +20,21 @@ RSpec.describe 'User-Comments-Post', type: :feature do
 
 	scenario '# user comments 5 different posts' do
 		posts.each{ |item|
-			comment = user.comments_a_post item, Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false)
+			comment = user.comments_post item, Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false)
 			expect(comment).to be_valid
 		}
 	end
 	
 	scenario '# post gets 5 comments from 5 different users' do
 		users.each{ |item|
-			comment = item.comments_a_post post, Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false)
+			comment = item.comments_post post, Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false)
 			expect(comment).to be_valid
 		}
 	end
 
 	scenario '# post gets 5 comments from one user' do
 		5.times do
-			comment = user.comments_a_post post, Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false)
+			comment = user.comments_post post, Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false)
 			expect(comment).to be_valid
 		end
 	end	
