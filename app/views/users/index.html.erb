@@ -10,7 +10,11 @@
                 @<%= u.first_name %> <%= u.last_name %>
               </div>
               <div class="col-3">
-                <%= link_to some_text(current_user.sent_friendships, u), new_friendship_path, class: 'btn btn-primary btn-small' %>
+                <% if friendship_pending?(u) %>
+                  <div class="btn btn-warning btn-small w-100">Pending</div>
+                <% else %>
+                  <%= link_to "Send Friendship Request", new_friendship_path(user: u), class: 'btn btn-primary btn-small w-100' %>
+                <% end %>
               </div>
             </div>
           </li>
