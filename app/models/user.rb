@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :sent_friendships , :class_name => "Friendship", :foreign_key => "user_id"
   has_many :received_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
 
+
   def comments_post(post, text)
     comments.create!(
       post: post,
@@ -38,8 +39,7 @@ class User < ApplicationRecord
 
   def requests_friendship(receiver)
     sent_friendships.create!(
-      friend: receiver,
-      user: self
+      friend: receiver
     )
   end 
 
@@ -63,9 +63,9 @@ class User < ApplicationRecord
     }.compact    
   end 
 
-  def unconfirmed_received_friendships_users
-    received_friendships.map{|friendship|
-       friendship.user unless friendship.confirmed
+  def friend_requests
+    received_friendships.map{|friendship| 
+      friendship.user unless friendship.confirmed
     }.compact
   end  
    
