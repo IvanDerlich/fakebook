@@ -8,5 +8,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @unconfirmed_sent_friendships = current_user.unconfirmed_sent_friendships
   end
 end
