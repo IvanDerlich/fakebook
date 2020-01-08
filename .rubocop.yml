@@ -7,8 +7,7 @@ AllCops:
     - "Rakefile"
     - "Gemfile"
     - "node_modules/**/*"
- 
-DisplayCopNames: true
+  DisplayCopNames: true
 
 Layout/LineLength:
   Max: 120
