@@ -2,8 +2,8 @@
 
 require 'factory_bot'
 FactoryBot.define do
-  factory :random_post, class: Post do
-    text { Faker::Lorem.paragraph_by_chars(number: 30, supplemental: false) }
+  factory :like, class: Like do
     association :user, factory: :random_user
+    association :post, factory: :random_post
   end
 end

@@ -13,4 +13,23 @@ class User < ApplicationRecord
             format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
   has_many :posts
+  has_many :comments
+  has_many :likes
+
+  def comments_post(post, text)
+    comments.create!(
+      post: post,
+      text: text
+    )
+  end
+
+  def likes_post(post)
+    likes.create!(
+      post: post
+    )
+  end
+
+  def sends_frienship_request; end
+
+  def befriends; end
 end
