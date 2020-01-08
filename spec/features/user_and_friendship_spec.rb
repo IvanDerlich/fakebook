@@ -4,22 +4,25 @@ require 'rails_helper'
 
 RSpec.describe 'User-Friendship', type: :feature do
 
-  let(:sender){ FactoryBot.create(:random_user)}
-  let(:receiver){ FactoryBot.create(:random_user)}
+  let(:sender){ FactoryBot.create(:random_user, first_name: 'sender')}
+  let(:receiver){ FactoryBot.create(:random_user, first_name: 'receiver')}
   let(:receiver_user_list) { FactoryBot.create_list(:random_user,5) }
   let(:sender_user_list) { FactoryBot.create_list(:random_user,5) }  
 
-  scenario "# users sends a request to another user" do     
+  scenario "# user with no friendship activity" do     
     
     expect(sender.confirmed_friends.first).to eq(nil) 
     expect(receiver.confirmed_friends.first).to eq(nil)  
 
-    expect(sender.unconfirmed_sent_friendships_users.first).to eq(nil)
-    expect(receiver.unconfirmed_sent_friendships_users.first).to eq(nil)
+    expect(sender.unconfirmed_sent_friendships.first).to eq(nil)
+    expect(receiver.unconfirmed_sent_friendships.first).to eq(nil)
 
     expect(sender.friend_requests.first).to eq(nil)
     expect(receiver.friend_requests.first).to eq(nil)
-        
+
+  end
+
+  scenario '# users sends a request to another user' do
     friendship = sender.requests_friendship(receiver) 
 
     expect(friendship.user).to eq(sender)
@@ -29,20 +32,28 @@ RSpec.describe 'User-Friendship', type: :feature do
     expect(sender.confirmed_friends.first).to eq(nil) 
     expect(receiver.confirmed_friends.first).to eq(nil)  
 
-    expect(sender.unconfirmed_sent_friendships_users.first).to eq(receiver)
-    expect(receiver.unconfirmed_sent_friendships_users.first).to eq(nil)
+    expect(sender.unconfirmed_sent_friendships.first).to eq(receiver)
+    expect(receiver.unconfirmed_sent_friendships.first).to eq(nil)
 
     expect(sender.friend_requests.first).to eq(nil)
-    byebug
     expect(receiver.friend_requests.first).to eq(sender)  
+    
+    
+  end
 
-    #friendship.accept
+  scenario '# user confirms friendship succesfully' do
+    friendship = sender.requests_friendship(receiver) 
     
-    # test confirmed friends in sender
-    # test confirmed friends in receiver
+    receiver.confirms_friendship(friendship)
     
-    # sender asserts one confirmed friendship using a user method from the model
-    # receiver asserts one confirmed friendship using a user method from the model
+    expect(sender.confirmed_friends.first).to eq(receiver) 
+    expect(receiver.confirmed_friends.first).to eq(sender)  
+
+    expect(sender.unconfirmed_sent_friendships.first).to eq(nil)
+    expect(receiver.unconfirmed_sent_friendships.first).to eq(nil)
+
+    expect(sender.friend_requests.first).to eq(nil)
+    expect(receiver.friend_requests.first).to eq(nil)
   end
 
   xit "# user sends a request to 5 other users" do
