@@ -3,7 +3,7 @@ class FriendshipsController < ApplicationController
   
   def new
     friend = User.find_by(id: params[:user])
-    friendship = current_user.request_friendship(friend)
+    friendship = current_user.requests_friendship(friend)
     flash[:success] = friendship.save ? "You sent a request successfully" : "Some error while sending"
     redirect_to users_path
   end

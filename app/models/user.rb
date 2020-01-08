@@ -57,7 +57,7 @@ class User < ApplicationRecord
     confirmed_friends_array.compact
   end
 
-  def unconfirmed_sent_friendships_users
+  def unconfirmed_sent_friendships
     sent_friendships.map{|friendship| 
       friendship.friend unless friendship.confirmed
     }.compact    
