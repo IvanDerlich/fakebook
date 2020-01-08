@@ -81,12 +81,16 @@ RSpec.describe 'User-Friendship', type: :feature do
 
   # tests below are for the 6th milestone
 
-  xit "# user sends invalid request to itself" do
+  xit "# invalid friend request: user sends a request to itself" do
 
   end
 
-  xit "# user sends invalid request twice to another user" do
+  xit "# invalid friend request: twice to another user" do
     
+  end
+
+  xit "# invalid friend request: user (sender) sends a friend request to another user and receiver sends a friend request to sender" do
+
   end
 
 end
