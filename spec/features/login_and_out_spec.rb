@@ -3,8 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Log in and out', type: :feature do
-
-  let(:user){ FactoryBot.create(:random_user) }
+  let(:user) { FactoryBot.create(:random_user) }
 
   scenario '# successfull login followed by logout' do
     visit new_user_session_path
