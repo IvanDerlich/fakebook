@@ -7,7 +7,8 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params)
     current_user.comments << @comment
-    redirect_to posts_path if @comment.save
+    flash[:error] = @comment.errors.full_messages.to_sentence unless @comment.save
+    redirect_to posts_path
   end
 
   private
