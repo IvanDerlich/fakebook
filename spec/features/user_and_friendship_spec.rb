@@ -56,7 +56,33 @@ RSpec.describe 'User-Friendship', type: :feature do
     expect(receiver.friend_requests.first).to eq(nil)
   end
 
-  xit "# user sends a request to 5 other users" do
+  scenario "# user sends a request to 5 other users" do
+    
+    expect(sender.unconfirmed_sent_friendships.length).to eq(0)
+    friendship1 = sender.requests_friendship(receiver_user_list[0])
+    expect(sender.unconfirmed_sent_friendships.length).to eq(1)
+    friendship2 = sender.requests_friendship(receiver_user_list[1])
+    expect(sender.unconfirmed_sent_friendships.length).to eq(2)
+    friendship3 = sender.requests_friendship(receiver_user_list[2])
+    expect(sender.unconfirmed_sent_friendships.length).to eq(3)
+    friendship4 = sender.requests_friendship(receiver_user_list[3])
+    expect(sender.unconfirmed_sent_friendships.length).to eq(4)
+    friendship5 = sender.requests_friendship(receiver_user_list[4])
+    expect(sender.unconfirmed_sent_friendships.length).to eq(5)
+
+    receiver_user_list[0].confirms_friendship(friendship1)  
+    #expect(sender.unconfirmed_sent_friendships.length).to eq(4)
+    expect(sender.friend?(receiver)).to be(true)
+
+    expect(receiver_user_list[0].confirmed_friends.length).to eq(1)
+    expect(sender.confirmed_friends.length).to eq(1)
+
+
+    # sender sender.requests_friendship(receiver_user_list[1])
+    # sender sender.requests_friendship(receiver_user_list[2])
+    # sender sender.requests_friendship(receiver_user_list[3])
+    # sender sender.requests_friendship(receiver_user_list[4])
+
     # sender asserts 0 unconfirmed friendships
     # sender creates 5 unconfirmed friendships
     # sender asserts 5 unconfirmed frienships    

@@ -37,6 +37,14 @@ class User < ApplicationRecord
     friendship.save
   end
 
+  def confirms_friendship_user(user)
+    friendship = received_friendships.find do |friendship| 
+      friendship.user == user
+    end
+    friendship.confirmed = true
+    friendship.save
+  end
+
   def requests_friendship(receiver)
     sent_friendships.create!(
       friend: receiver
@@ -44,7 +52,7 @@ class User < ApplicationRecord
   end 
 
   def friend?(user)
-    friends.include?(user)
+    confirmed_friends.include?(user)
   end 
   
   def confirmed_friends
