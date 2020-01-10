@@ -32,19 +32,15 @@ class User < ApplicationRecord
     )
   end
 
-  def confirms_friendship(friendship)
-    friendship.confirmed = true
-    friendship.save
-  end
-
-  def confirms_friendship_user(user)
+  def confirms_friendship(user)
     friendship = received_friendships.find do |friendship| 
-      friendship.user == user
+      friendship.user == user &&
+      friendship.confirmed == false
     end    
     #<comment> this funtion returns false in two scenarios
     # 1 - receiver hasn't received the request
-    # 2 - or receiver is the one that has send the request    
-    return false unless friendship 
+    # 2 - or receiver is the one that has send the request  
+    # Improvement opportunity: we can create more rich error message
     #</comment> 
     friendship.confirmed = true
     friendship.save
@@ -61,9 +57,7 @@ class User < ApplicationRecord
   end 
   
   def friends
-    friends_array = sent_friendships.# <comment> see docs/bugs/bug1/    
-    map{|f| f.id}.
-    map{|id| Friendship.find(id)}. # </comment>    
+    friends_array = sent_friendships.   
     map{|friendship| 
       friendship.friend if friendship.confirmed
     }
@@ -74,9 +68,7 @@ class User < ApplicationRecord
   end
 
   def requests_sent
-    sent_friendships.# <comment> see docs/bugs/bug1/    
-    map{|f| f.id}.
-    map{|id| Friendship.find(id)}. # </comment>    
+    sent_friendships.   
     map{|friendship| 
       friendship.friend unless friendship.confirmed
     }.compact    
