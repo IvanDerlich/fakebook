@@ -167,7 +167,7 @@ RSpec.describe 'User-Friendship', type: :feature do
     }        
     checkstate(state)
 
-    sender_user_list[0].requests_friendship(receiver_user_list[0])
+    sender_user_list[0].requests_friendship(receiver)
     state = {      
       receiver: receiver_user_list[0],
       are_friends: false,

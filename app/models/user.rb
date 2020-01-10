@@ -15,8 +15,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
-  has_many :sent_friendships , :class_name => "Friendship", :foreign_key => "user_id"
-  has_many :received_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :sent_friendships , :class_name => "Friendship", :foreign_key => "sender_id"
+  has_many :received_friendships, :class_name => "Friendship", :foreign_key => "receiver_id"
 
 
   def comments_post(post, text)
@@ -47,9 +47,15 @@ class User < ApplicationRecord
   end
 
   def requests_friendship(receiver)
-    sent_friendships.create!(
-      friend: receiver
+    Friendship.create!(
+      friend: receiver,
+      user: self      
     )
+    # <comment> I had to abandon this way of doing it because rspec was making tests fails
+    # sent_friendships.create!(
+    #   friend: receiver
+    # )
+    # </comment>
   end 
 
   def friend?(user)
@@ -59,10 +65,10 @@ class User < ApplicationRecord
   def friends
     friends_array = sent_friendships.   
     map{|friendship| 
-      friendship.friend if friendship.confirmed
+      friendship.receiver if friendship.confirmed
     }
     friends_array += received_friendships.map{|friendship| 
-      friendship.user if friendship.confirmed
+      friendship.sender if friendship.confirmed
     }    
     friends_array.compact
   end
@@ -70,13 +76,13 @@ class User < ApplicationRecord
   def requests_sent
     sent_friendships.   
     map{|friendship| 
-      friendship.friend unless friendship.confirmed
+      friendship.receiver unless friendship.confirmed
     }.compact    
   end   
 
   def requests_received
     received_friendships.map{|friendship| 
-      friendship.user unless friendship.confirmed
+      friendship.sender unless friendship.confirmed
     }.compact
   end  
    
