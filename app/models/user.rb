@@ -40,7 +40,12 @@ class User < ApplicationRecord
   def confirms_friendship_user(user)
     friendship = received_friendships.find do |friendship| 
       friendship.user == user
-    end
+    end    
+    #<comment> this funtion returns false in two scenarios
+    # 1 - receiver hasn't received the request
+    # 2 - or receiver is the one that has send the request    
+    return false unless friendship 
+    #</comment> 
     friendship.confirmed = true
     friendship.save
   end
@@ -52,26 +57,42 @@ class User < ApplicationRecord
   end 
 
   def friend?(user)
-    confirmed_friends.include?(user)
+    friends.include?(user)
   end 
   
-  def confirmed_friends
-    confirmed_friends_array = sent_friendships.map{|friendship| 
+  def friends
+    friends_array = sent_friendships.
+    # <comment> see docs/bugs/bug1
+    map{|f| f.id}.
+    map{|id| Friendship.find(id)}.
+    # </comment>
+    map{|friendship| 
       friendship.friend if friendship.confirmed
     }
-    confirmed_friends_array += received_friendships.map{|friendship| 
+    friends_array += received_friendships.map{|friendship| 
       friendship.user if friendship.confirmed
-    }
-    confirmed_friends_array.compact
+    }    
+    friends_array.compact
   end
 
-  def unconfirmed_sent_friendships
-    sent_friendships.map{|friendship| 
+  def requests_sent_users
+    sent_friendships.
+    # <comment> see docs/bugs/bug1
+    map{|f| f.id}.
+    map{|id| Friendship.find(id)}.
+    # </comment>
+    map{|friendship| 
       friendship.friend unless friendship.confirmed
     }.compact    
   end 
 
-  def friend_requests
+  # def requests_sent
+  #   sent_friendships.map{|friendship| 
+  #     friendship unless friendship.confirmed
+  #   }.compact    
+  # end 
+
+  def requests_received_users
     received_friendships.map{|friendship| 
       friendship.user unless friendship.confirmed
     }.compact
