@@ -15,8 +15,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
-  has_many :sent_friendships , :class_name => "Friendship", :foreign_key => "sender_id"
-  has_many :received_friendships, :class_name => "Friendship", :foreign_key => "receiver_id"
+  has_many :sent_friendships , :class_name => "Friendship", :foreign_key => "user_id"
+  has_many :received_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
 
 
   def comments_post(post, text)
@@ -65,10 +65,10 @@ class User < ApplicationRecord
   def friends
     friends_array = sent_friendships.   
     map{|friendship| 
-      friendship.receiver if friendship.confirmed
+      friendship.friend if friendship.confirmed
     }
     friends_array += received_friendships.map{|friendship| 
-      friendship.sender if friendship.confirmed
+      friendship.user if friendship.confirmed
     }    
     friends_array.compact
   end
@@ -76,13 +76,13 @@ class User < ApplicationRecord
   def requests_sent
     sent_friendships.   
     map{|friendship| 
-      friendship.receiver unless friendship.confirmed
+      friendship.friend unless friendship.confirmed
     }.compact    
   end   
 
   def requests_received
     received_friendships.map{|friendship| 
-      friendship.sender unless friendship.confirmed
+      friendship.user unless friendship.confirmed
     }.compact
   end  
    
