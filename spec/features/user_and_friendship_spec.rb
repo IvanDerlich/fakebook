@@ -2,55 +2,17 @@
 
 require 'rails_helper'
 
+
 RSpec.describe 'User-Friendship', type: :feature do
+
+  RSpec.configure do |c|
+    c.include User_and_Frienship_Helpers
+  end  
 
   let(:sender){ FactoryBot.create(:random_user, first_name: 'sender')}
   let(:receiver){ FactoryBot.create(:random_user, first_name: 'receiver')}
   let(:receiver_user_list) { FactoryBot.create_list(:random_user,5) }
   let(:sender_user_list) { FactoryBot.create_list(:random_user,5) }  
-
-
-  def checkstate(state)  
-    state[:sender].reload if state[:sender]
-    state[:receiver].reload if state[:receiver]
-    expect(state[:sender].friend?(state[:receiver])).to be(state[:are_friends]) if state[:are_friends] && state[:sender] && state[:receiver]
-    expect(state[:receiver].friend?(state[:sender])).to be(state[:are_friends]) if state[:are_friends] && state[:sender] && state[:receiver]
-
-    expect(state[:sender].requests_sent.length).to eq(state[:sent_requests]) if state[:sent_requests] && state[:sender]    
-    
-    expect(state[:receiver].requests_received.length).to eq(state[:received_requests]) if state[:received_requests] && state[:receiver]
-
-    expect(state[:sender].friends.length).to eq(state[:sender_friends]) if state[:sender_friends] && state[:sender]
-    expect(state[:receiver].friends.length).to eq(state[:receiver_friends]) if state[:receiver_friends]  && state[:receiver]
-   
-    if state[:request_sent_to_receiver]  
-      expect(state[:sender].requests_sent.include?(state[:receiver])).to eq(true)
-      expect(state[:receiver].requests_received.include?(state[:sender])).to eq(true)        
-      friendship = Friendship.find{|f| 
-        f.user == state[:sender] and f.friend == state[:receiver]
-      }
-      #byebug
-      expect(friendship).to_not eq(nil)
-      expect(friendship.user).to eq(state[:sender])
-      expect(friendship.friend).to eq(state[:receiver])
-      if state[:are_friends]  
-        expect(friendship.confirmed).to be(true) 
-        expect(state[:sender].friends.include?(state[:receiver])).to eq(true)
-        expect(state[:receiver].friends.include?(state[:sender])).to eq(true)        
-      else 
-        expect(friendship.confirmed).to be(false) 
-        expect(state[:sender].friends.include?(state[:receiver])).to eq(false)
-        expect(state[:receiver].friends.include?(state[:sender])).to eq(false)
-      end
-    else   
-      friendship = Friendship.find{|f| 
-        f.user == state[:sender] and f.friend == state[:receiver]
-      }
-      expect(friendship).to eq(nil)
-    end     
-
-    
-  end
 
   scenario "# user with no friendship activity" do 
     state = {
@@ -94,13 +56,14 @@ RSpec.describe 'User-Friendship', type: :feature do
     checkstate(state) 
     
     sender.requests_friendship(receiver_user_list[0])
-    state = {      
-      receiver: receiver_user_list[0],
-      are_friends: false,
-      sent_requests: 1,
-      received_requests:  1,      
-      receiver_friends: 0
-    }    
+        
+    state[:receiver] = receiver_user_list[0]
+    state[:request_sent_to_receiver] = true
+    state[:are_friends] = false
+    state[:sent_requests] = 1
+    state[:received_requests] =  1
+    state[:receiver_friends] = 0
+
     checkstate(state) 
 
     sender.requests_friendship(receiver_user_list[1])    
@@ -126,6 +89,7 @@ RSpec.describe 'User-Friendship', type: :feature do
 
     receiver_user_list[0].confirms_friendship(sender)  
     state[:receiver] = receiver_user_list[0]
+    state[:request_sent_to_receiver] = false
     state[:are_friends] = true
     state[:sent_requests] = 4
     state[:received_requests] = 0
@@ -159,21 +123,21 @@ RSpec.describe 'User-Friendship', type: :feature do
     
   end
 
-  xit "# user receives requests from 5 different users" do
+  it "# user receives requests from 5 different users" do
     state = {
-      sender: sender,            
-      sent_requests: 0,      
-      sender_friends:  0,      
+      receiver: receiver,           
+      received_requests:  0,      
+      receiver_friends: 0
     }        
     checkstate(state)
 
     sender_user_list[0].requests_friendship(receiver)
-    state = {      
-      receiver: receiver_user_list[0],
+    state = {  
       are_friends: false,
       sent_requests: 1,
-      received_requests:  1,      
-      receiver_friends: 0
+      sent_friends: 0,
+      are_friends: false,
+      request_sent_to_receiver: true
     }    
     checkstate(state) 
 
