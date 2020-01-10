@@ -58,118 +58,88 @@ RSpec.describe 'User-Friendship', type: :feature do
 
   #<comment> send this funtion to a helper method
   # this to replace parameters for a hash
-  def checkstate(sender,
-    receiver,are_friends, 
-    sent_requests, 
-    received_requests, 
-    sender_friends, 
-    receiver_friends
-  )    
-    expect(sender.friend?(receiver)).to be(are_friends)
-    expect(receiver.friend?(sender)).to be(are_friends)
+  def checkstate(state)    
+    expect(state[:sender].friend?(state[:receiver])).to be(state[:are_friends]) if state[:are_friends]
+    expect(state[:receiver].friend?(state[:sender])).to be(state[:are_friends]) if state[:are_friends]
 
-    expect(sender.requests_sent.length).to eq(sent_requests)
-    expect(receiver.requests_received.length).to eq(received_requests)    
+    expect(state[:sender].requests_sent.length).to eq(state[:sent_requests]) if state[:sent_requests]
+    expect(state[:receiver].requests_received.length).to eq(state[:received_requests]) if state[:received_requests]
 
-    expect(sender.friends.length).to eq(sender_friends)
-    expect(receiver.friends.length).to eq(receiver_friends)
+    expect(state[:sender].friends.length).to eq(state[:sender_friends]) if state[:sender_friends]
+    expect(state[:receiver].friends.length).to eq(state[:receiver_friends]) if state[:receiver_friends]
     
   end
   #</comment>
 
   scenario "# user sends a request to 5 other users" do
     
-    expect(sender.requests_sent.length).to eq(0)
+    expect(sender.requests_sent.length).to eq(0)  
     
     sender.requests_friendship(receiver_user_list[0])
-    checkstate( sender, receiver_user_list[0], 
-      false, # are friends?
-      1, # sender's friend_requests
-      1, # receiver's received requests
-      0, # sender's friends
-      0 # receiver's friends
-    ) 
+    state = {
+      sender: sender,
+      receiver: receiver_user_list[0],
+      are_friends: false,
+      sent_requests: 1,
+      received_requests:  1,
+      sender_friends:  0,
+      receiver_friends: 0
+    }    
+    checkstate(state) 
 
-    sender.requests_friendship(receiver_user_list[1])
-    checkstate( sender, receiver_user_list[1], 
-      false, # are friends?
-      2, # sender's friend_requests
-      1, # receiver's received requests
-      0, # sender's friends
-      0 # receiver's friends
-    )   
+    sender.requests_friendship(receiver_user_list[1])    
+    state[:receiver] = receiver_user_list[1]
+    state[:sent_requests] = 2
+    checkstate(state) 
 
-    sender.requests_friendship(receiver_user_list[2])
-    checkstate( sender, receiver_user_list[2], 
-      false,# are friends?
-      3, # sender's friend_requests
-      1, # receiver's received requests
-      0, # sender's friends
-      0 # receiver's friends
-    )  
-    
+    sender.requests_friendship(receiver_user_list[2])  
+    state[:receiver] = receiver_user_list[2]
+    state[:sent_requests] = 3
+    checkstate(state) 
 
     sender.requests_friendship(receiver_user_list[3])
-    checkstate( sender, receiver_user_list[3], 
-      false, # are friends?
-      4, # sender's friend_requests
-      1, # receiver's received requests
-      0, # sender's friends
-      0 # receiver's friends
-    )
+    state[:receiver] = receiver_user_list[3]
+    state[:sent_requests] = 4
+    checkstate(state) 
     
     sender.requests_friendship(receiver_user_list[4])
-    checkstate( sender, receiver_user_list[4], 
-      false, # are friends?
-      5, # sender's friend_requests
-      1, # receiver's received requests
-      0, # sender's friends
-      0 # receiver's friends
-    )  
+    state[:receiver] = receiver_user_list[4]
+    state[:sent_requests] = 5
+    checkstate(state) 
     
 
     receiver_user_list[0].confirms_friendship_user(sender)  
-    checkstate( sender, receiver_user_list[0],
-       true, # are friends?
-       4, # sender's friend_requests
-       0, # receiver's received requests
-       1, # sender's friends
-       1 # receiver's friends
-      )
+    state[:receiver] = receiver_user_list[0]
+    state[:are_friends] = true
+    state[:sent_requests] = 4
+    state[:received_requests] = 0
+    state[:sender_friends] = 1
+    state[:receiver_friends] = 1
+    
+
     receiver_user_list[1].confirms_friendship_user(sender)  
-    checkstate( sender, receiver_user_list[1],
-       true, #are friends?
-       3, # sender's friend_requests
-       0, # receiver's received requests
-       2, # sender's friends
-       1 # receiver's friends
-      )
+    state[:receiver] = receiver_user_list[1]
+    state[:sent_requests] = 3
+    state[:sender_friends] = 2
+    checkstate(state)       
 
     receiver_user_list[2].confirms_friendship_user(sender)  
-    checkstate( sender, receiver_user_list[1],
-       true, #are friends?
-       2, # sender's friend_requests
-       0, # receiver's received requests
-       3, # sender's friends
-       1 # receiver's friends
-      )
-
+    state[:receiver] = receiver_user_list[2]
+    state[:sent_requests] = 2
+    state[:sender_friends] = 3
+    checkstate(state)       
+    
     receiver_user_list[3].confirms_friendship_user(sender)  
-    checkstate( sender, receiver_user_list[1],
-       true, #are friends?
-       1, # sender's friend_requests
-       0, # receiver's received requests
-       4, # sender's friends
-       1 # receiver's friends
-      )
+    state[:receiver] = receiver_user_list[3]
+    state[:sent_requests] = 1
+    state[:sender_friends] = 4
+    checkstate(state)       
+
     receiver_user_list[4].confirms_friendship_user(sender)  
-    checkstate( sender, receiver_user_list[1],
-      true, #are friends?
-      0, # sender's friend_requests
-      0, # receiver's received requests
-      5, # sender's friends
-      1 # receiver's friends
-    )
+    state[:receiver] = receiver_user_list[4]
+    state[:sent_requests] = 0
+    state[:sender_friends] = 5
+    checkstate(state)       
     
   end
 
@@ -190,7 +160,7 @@ RSpec.describe 'User-Friendship', type: :feature do
 
   end
 
-  # tests below are for the 6th milestone
+  # tests below are for the 6th milestone.
 
   xit "# invalid friend request: user sends a request to itself" do
 
