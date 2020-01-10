@@ -47,15 +47,9 @@ class User < ApplicationRecord
   end
 
   def requests_friendship(receiver)
-    Friendship.create!(
-      friend: receiver,
-      user: self      
+    sent_friendships.create!(
+      friend: receiver
     )
-    # <comment> I had to abandon this way of doing it because rspec was making tests fails
-    # sent_friendships.create!(
-    #   friend: receiver
-    # )
-    # </comment>
   end 
 
   def friend?(user)
