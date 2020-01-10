@@ -36,24 +36,29 @@ class User < ApplicationRecord
     friendship = received_friendships.find do |friendship| 
       friendship.user == user &&
       friendship.confirmed == false
-    end    
-    #<comment> this funtion returns false in two scenarios
-    # 1 - receiver hasn't received the request
-    # 2 - or receiver is the one that has send the request  
-    # Improvement opportunity: we can create more rich error message
-    #</comment> 
+    end          
+    # <comment> Improvement opportunity Nº1 </comment>
     friendship.confirmed = true
     friendship.save
   end
 
   def requests_friendship(receiver)
-    sent_friendships.create!(
+    friendship = sent_friendships.new(
       friend: receiver
-    )
+    )      
+    if friendship.valid?      
+      friendship.save   
+    else      
+      # <comment> Improvement opportunity Nº2
+      errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])# if friendship.errors.messages[:not_to_itself]
+      # errors.add(:already_received, friendship.errors.messages[:already_received]) if friendship.errors.messages[:already_received]
+      # errors.add(:already_sent, friendship.errors.messages[:already_sent]) if friendship.errors.messages[:already_sent]
+      # </comment>
+    end 
   end 
 
   def friend?(user)
-    friends.include?(user)
+    friends.include?(user) # && user.include?(self)
   end 
   
   def friends
@@ -68,8 +73,7 @@ class User < ApplicationRecord
   end
 
   def requests_sent
-    sent_friendships.   
-    map{|friendship| 
+    sent_friendships.map{|friendship| 
       friendship.friend unless friendship.confirmed
     }.compact    
   end   
