@@ -14,11 +14,11 @@ RSpec.describe 'User-Friendship', type: :feature do
     expect(sender.friends.first).to eq(nil) 
     expect(receiver.friends.first).to eq(nil)  
 
-    expect(sender.requests_sent_users.first).to eq(nil)
-    expect(receiver.requests_sent_users.first).to eq(nil)
+    expect(sender.requests_sent.first).to eq(nil)
+    expect(receiver.requests_sent.first).to eq(nil)
 
-    expect(sender.requests_received_users.first).to eq(nil)
-    expect(receiver.requests_received_users.first).to eq(nil)
+    expect(sender.requests_received.first).to eq(nil)
+    expect(receiver.requests_received.first).to eq(nil)
 
   end
 
@@ -32,11 +32,11 @@ RSpec.describe 'User-Friendship', type: :feature do
     expect(sender.friends.first).to eq(nil) 
     expect(receiver.friends.first).to eq(nil)  
 
-    expect(sender.requests_sent_users.first).to eq(receiver)
-    expect(receiver.requests_sent_users.first).to eq(nil)
+    expect(sender.requests_sent.first).to eq(receiver)
+    expect(receiver.requests_sent.first).to eq(nil)
 
-    expect(sender.requests_received_users.first).to eq(nil)
-    expect(receiver.requests_received_users.first).to eq(sender)  
+    expect(sender.requests_received.first).to eq(nil)
+    expect(receiver.requests_received.first).to eq(sender)  
     
     
   end
@@ -49,11 +49,11 @@ RSpec.describe 'User-Friendship', type: :feature do
     expect(sender.friends.first).to eq(receiver) 
     expect(receiver.friends.first).to eq(sender)  
 
-    expect(sender.requests_sent_users.first).to eq(nil)
-    expect(receiver.requests_sent_users.first).to eq(nil)
+    expect(sender.requests_sent.first).to eq(nil)
+    expect(receiver.requests_sent.first).to eq(nil)
 
-    expect(sender.requests_received_users.first).to eq(nil)
-    expect(receiver.requests_received_users.first).to eq(nil)
+    expect(sender.requests_received.first).to eq(nil)
+    expect(receiver.requests_received.first).to eq(nil)
   end
 
   #<comment> send this funtion to a helper method
@@ -62,14 +62,14 @@ RSpec.describe 'User-Friendship', type: :feature do
     receiver,are_friends, 
     sent_requests, 
     received_requests, 
-    ender_friends, 
+    sender_friends, 
     receiver_friends
   )    
     expect(sender.friend?(receiver)).to be(are_friends)
     expect(receiver.friend?(sender)).to be(are_friends)
 
-    expect(sender.requests_sent_users.length).to eq(sent_requests)
-    expect(receiver.requests_received_users.length).to eq(received_requests)    
+    expect(sender.requests_sent.length).to eq(sent_requests)
+    expect(receiver.requests_received.length).to eq(received_requests)    
 
     expect(sender.friends.length).to eq(sender_friends)
     expect(receiver.friends.length).to eq(receiver_friends)
@@ -79,7 +79,7 @@ RSpec.describe 'User-Friendship', type: :feature do
 
   scenario "# user sends a request to 5 other users" do
     
-    expect(sender.requests_sent_users.length).to eq(0)
+    expect(sender.requests_sent.length).to eq(0)
     
     sender.requests_friendship(receiver_user_list[0])
     checkstate( sender, receiver_user_list[0], 

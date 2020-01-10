@@ -61,11 +61,9 @@ class User < ApplicationRecord
   end 
   
   def friends
-    friends_array = sent_friendships.
-    # <comment> see docs/bugs/bug1
+    friends_array = sent_friendships.# <comment> see docs/bugs/bug1/    
     map{|f| f.id}.
-    map{|id| Friendship.find(id)}.
-    # </comment>
+    map{|id| Friendship.find(id)}. # </comment>    
     map{|friendship| 
       friendship.friend if friendship.confirmed
     }
@@ -75,24 +73,16 @@ class User < ApplicationRecord
     friends_array.compact
   end
 
-  def requests_sent_users
-    sent_friendships.
-    # <comment> see docs/bugs/bug1
+  def requests_sent
+    sent_friendships.# <comment> see docs/bugs/bug1/    
     map{|f| f.id}.
-    map{|id| Friendship.find(id)}.
-    # </comment>
+    map{|id| Friendship.find(id)}. # </comment>    
     map{|friendship| 
       friendship.friend unless friendship.confirmed
     }.compact    
-  end 
+  end   
 
-  # def requests_sent
-  #   sent_friendships.map{|friendship| 
-  #     friendship unless friendship.confirmed
-  #   }.compact    
-  # end 
-
-  def requests_received_users
+  def requests_received
     received_friendships.map{|friendship| 
       friendship.user unless friendship.confirmed
     }.compact
