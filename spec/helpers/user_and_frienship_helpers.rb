@@ -1,16 +1,15 @@
-module User_and_Frienship_Helpers
+module User_and_Frienship_helpers
   def checkstate(state)  
-    state[:sender].reload if state[:sender]
-    state[:receiver].reload if state[:receiver]
-    expect(state[:sender].friend?(state[:receiver])).to be(state[:are_friends]) if state[:are_friends] && state[:sender] && state[:receiver]
-    expect(state[:receiver].friend?(state[:sender])).to be(state[:are_friends]) if state[:are_friends] && state[:sender] && state[:receiver]
-
-    expect(state[:sender].requests_sent.length).to eq(state[:sent_requests]) if state[:sent_requests] && state[:sender]    
-    
-    expect(state[:receiver].requests_received.length).to eq(state[:received_requests]) if state[:received_requests] && state[:receiver]
-
-    expect(state[:sender].friends.length).to eq(state[:sender_friends]) if state[:sender_friends] && state[:sender]
-    expect(state[:receiver].friends.length).to eq(state[:receiver_friends]) if state[:receiver_friends]  && state[:receiver]
+    if state[:sender]
+      state[:sender].reload 
+      expect(state[:sender].requests_sent.length).to eq(state[:sent_requests])
+      expect(state[:sender].friends.length).to eq(state[:sender_friends])
+    end
+    if state[:receiver]    
+      state[:receiver].reload 
+      expect(state[:receiver].requests_received.length).to eq(state[:received_requests])
+      expect(state[:receiver].friends.length).to eq(state[:receiver_friends]) 
+    end    
 
     friendship = Friendship.find{|f| 
       f.user == state[:sender] and f.friend == state[:receiver]
@@ -31,7 +30,11 @@ module User_and_Frienship_Helpers
         expect(state[:sender].friends.include?(state[:receiver])).to eq(false)
         expect(state[:receiver].friends.include?(state[:sender])).to eq(false)
       end
-    else  
+    elsif state[:are_friends]
+      expect(friendship).to_not eq(nil)
+      expect(state[:sender].friend?(state[:receiver])).to be(state[:are_friends])
+      expect(state[:receiver].friend?(state[:sender])).to be(state[:are_friends])
+    else
       expect(friendship).to eq(nil)
     end   
   end
