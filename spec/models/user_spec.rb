@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -24,7 +26,7 @@ RSpec.describe User, type: :model do
 
   it 'valid post association' do
     user = create(:random_user)
-    post = user.posts.build({text: "This is a test description"})
+    post = user.posts.build(text: 'This is a test description')
     post.valid?
     expect(post).to be_valid
   end
@@ -51,4 +53,3 @@ RSpec.describe User, type: :model do
     end
   end
 end
-
