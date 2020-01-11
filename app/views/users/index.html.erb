@@ -10,8 +10,12 @@
                 @<%= u.first_name %> <%= u.last_name %>
               </div>
               <div class="col-3">
-                <% if friendship_pending?(u) %>
+                <% if friendship_requested_pending?(u) %>
                   <div class="btn btn-warning btn-small w-100">Pending</div>
+                <% elsif friendship_unconfirmed?(u) %>
+                  <%= link_to "Confirm Friendship", friendship_confirm_path(u), class: 'btn btn-success btn-small w-100', method: :put %>
+                <% elsif current_user.friend?(u) %>
+                  <div class="btn btn-success btn-small w-100">Friends</div>
                 <% else %>
                   <%= link_to "Send Friendship Request", new_friendship_path(user: u), class: 'btn btn-primary btn-small w-100' %>
                 <% end %>
