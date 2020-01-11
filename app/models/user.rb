@@ -36,19 +36,29 @@ class User < ApplicationRecord
     friendship = received_friendships.find do |friendship| 
       friendship.user == user &&
       friendship.confirmed == false
-    end
+    end          
+    # <comment> Improvement opportunity Nº1 </comment>
     friendship.confirmed = true
     friendship.save
   end
 
   def requests_friendship(receiver)
-    Friendship.create!(
-      friend: receiver  
-    )
+    friendship = sent_friendships.new(
+      friend: receiver
+    )      
+    if friendship.valid?      
+      friendship.save   
+    else      
+      # <comment> Improvement opportunity Nº2
+      errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])# if friendship.errors.messages[:not_to_itself]
+      # errors.add(:already_received, friendship.errors.messages[:already_received]) if friendship.errors.messages[:already_received]
+      # errors.add(:already_sent, friendship.errors.messages[:already_sent]) if friendship.errors.messages[:already_sent]
+      # </comment>
+    end 
   end 
 
   def friend?(user)
-    friends.include?(user)
+    friends.include?(user) # && user.include?(self)
   end 
   
   def friends

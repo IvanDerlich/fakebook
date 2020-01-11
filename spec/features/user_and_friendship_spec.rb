@@ -28,22 +28,44 @@ RSpec.describe 'User-Friendship', type: :feature do
     checkstate(state) 
 
     sender.requests_friendship(receiver)     
-    state[:request_sent_to_receiver] = true
-    state[:sent_requests] = 1
-    state[:received_requests] = 1
-
+    state.merge!({
+      request_sent_to_receiver: true,
+      sent_requests: 1,
+      received_requests: 1
+    })  
     checkstate(state)        
     
-    receiver.confirms_friendship(sender)    
-    state[:request_sent_to_receiver] = false
-    state[:are_friends] = true
-    state[:sent_requests] = 0
-    state[:received_requests] = 0
-    state[:sender_friends] = 1
-    state[:receiver_friends] = 1    
-       
+    receiver.confirms_friendship(sender)
+    byebug   
+    state.merge!({
+      request_sent_to_receiver: false,
+      are_friends: true,
+      sent_requests: 0,
+      received_requests: 0,
+      sender_friends: 1,
+      receiver_friends: 1           
+    })
     checkstate(state)
   end 
+
+  xit "# invalid friend request: user sends a request to itself" do
+    
+    error = sender.requests_friendship(sender)[0][0]
+    
+    expect(error).to eq('You cannot send friend requests to yourself')
+
+  end
+
+  xit "# invalid friend request: twice to the same user" do
+    sender.requests_friendship(receiver)
+    error = sender.requests_friendship(receiver)[0][0]
+    expect(error).to eq('cannot send friend requests to yourself')
+  end
+
+  xit "# invalid friend request: user (sender) sends a friend request to another user and receiver sends a friend request to sender" do
+    sender.requests_friendship(receiver)
+    receiver.requests_friendship(sender)
+  end
   
 
   scenario "# user sends a request to 5 other users" do    
@@ -57,12 +79,14 @@ RSpec.describe 'User-Friendship', type: :feature do
     
     sender.requests_friendship(receiver_user_list[0])
         
-    state[:receiver] = receiver_user_list[0]
-    state[:request_sent_to_receiver] = true
-    state[:are_friends] = false
-    state[:sent_requests] = 1
-    state[:received_requests] =  1
-    state[:receiver_friends] = 0
+    state.merge!({
+      receiver: receiver_user_list[0],
+      request_sent_to_receiver: true,
+      are_friends: false,
+      sent_requests: 1,
+      received_requests:  1,
+      receiver_friends: 0
+    })
 
     checkstate(state) 
 
@@ -123,7 +147,7 @@ RSpec.describe 'User-Friendship', type: :feature do
     
   end
 
-  it "# user receives requests from 5 different users" do
+  scenario "# user receives requests from 5 different users" do
     state = {
       receiver: receiver,           
       received_requests:  0,      
@@ -195,19 +219,4 @@ RSpec.describe 'User-Friendship', type: :feature do
     checkstate(state)  
 
   end
-
-  # tests below are for the 6th milestone.
-
-  xit "# invalid friend request: user sends a request to itself" do
-
-  end
-
-  xit "# invalid friend request: twice to another user" do
-    
-  end
-
-  xit "# invalid friend request: user (sender) sends a friend request to another user and receiver sends a friend request to sender" do
-
-  end
-
 end
