@@ -7,7 +7,8 @@ RSpec.describe Friendship, type: :model do
   let(:friendship) { FactoryBot.create(:confirmed_friendship) }
 
   it '# creates a valid unconfirmed_friendship' do
-      expect(unconfirmed_friendship).to be_valid
+    #byebug
+    expect(unconfirmed_friendship).to be_valid
   end
 
   it '# creates a valid confirmed_friendship' do

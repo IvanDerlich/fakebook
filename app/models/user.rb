@@ -43,9 +43,10 @@ class User < ApplicationRecord
   end
 
   def requests_friendship(receiver)
+
     friendship = sent_friendships.new(
       friend: receiver
-    )      
+    )          
     if friendship.valid?      
       friendship.save   
     else      
