@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   end
   
   resources :friendships, only: [:new]
+  put 'friendships/confirms_friend/:friend_id', to: 'friendships#update', as: :friendship_confirm
+
   get 'users', to: 'users#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # root 'posts#index'

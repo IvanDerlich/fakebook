@@ -63,26 +63,17 @@ class User < ApplicationRecord
   end 
   
   def friends
-    friends_array = sent_friendships.   
-    map{|friendship| 
-      friendship.friend if friendship.confirmed
-    }
-    friends_array += received_friendships.map{|friendship| 
-      friendship.user if friendship.confirmed
-    }    
+    friends_array = sent_friendships.map{ |friendship| friendship.friend if friendship.confirmed }
+    friends_array += received_friendships.map{ |friendship| friendship.user if friendship.confirmed }    
     friends_array.compact
   end
 
   def requests_sent
-    sent_friendships.map{|friendship| 
-      friendship.friend unless friendship.confirmed
-    }.compact    
+    sent_friendships.map{ |friendship| friendship.friend unless friendship.confirmed }.compact    
   end   
 
   def requests_received
-    received_friendships.map{|friendship| 
-      friendship.user unless friendship.confirmed
-    }.compact
+    received_friendships.map{ |friendship| friendship.user unless friendship.confirmed }.compact
   end  
    
 end
