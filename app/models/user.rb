@@ -36,26 +36,15 @@ class User < ApplicationRecord
     friendship = received_friendships.find do |friendship| 
       friendship.user == user &&
       friendship.confirmed == false
-    end    
-    #<comment> this funtion returns false in two scenarios
-    # 1 - receiver hasn't received the request
-    # 2 - or receiver is the one that has send the request  
-    # Improvement opportunity: we can create more rich error message
-    #</comment> 
+    end
     friendship.confirmed = true
     friendship.save
   end
 
   def requests_friendship(receiver)
     Friendship.create!(
-      friend: receiver,
-      user: self      
+      friend: receiver  
     )
-    # <comment> I had to abandon this way of doing it because rspec was making tests fails
-    # sent_friendships.create!(
-    #   friend: receiver
-    # )
-    # </comment>
   end 
 
   def friend?(user)
@@ -63,27 +52,17 @@ class User < ApplicationRecord
   end 
   
   def friends
-    friends_array = sent_friendships.   
-    map{|friendship| 
-      friendship.friend if friendship.confirmed
-    }
-    friends_array += received_friendships.map{|friendship| 
-      friendship.user if friendship.confirmed
-    }    
+    friends_array = sent_friendships.map{ |friendship| friendship.friend if friendship.confirmed }
+    friends_array += received_friendships.map{ |friendship| friendship.user if friendship.confirmed }    
     friends_array.compact
   end
 
   def requests_sent
-    sent_friendships.   
-    map{|friendship| 
-      friendship.friend unless friendship.confirmed
-    }.compact    
+    sent_friendships.map{ |friendship| friendship.friend unless friendship.confirmed }.compact    
   end   
 
   def requests_received
-    received_friendships.map{|friendship| 
-      friendship.user unless friendship.confirmed
-    }.compact
+    received_friendships.map{ |friendship| friendship.user unless friendship.confirmed }.compact
   end  
    
 end
