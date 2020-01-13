@@ -60,7 +60,7 @@ RSpec.describe 'User-Friendship', type: :feature do
 
   xit "# Invalid friend request: Already received" do
     sender.requests_friendship(receiver)
-    receiver.requests_friendship(sender)
+    error = receiver.requests_friendship(sender)[0][0]
     expect(error).to eq('You have already received a friend request from that user')    
   end  
 
@@ -115,30 +115,31 @@ RSpec.describe 'User-Friendship', type: :feature do
     state[:received_requests] = 0
     state[:sender_friends] = 1
     state[:receiver_friends] = 1
+    checkstate(state) 
     
 
     receiver_user_list[1].confirms_friendship(sender)  
-    state[:receiver] = receiver_user_list[1]
-    state[:sent_requests] = 3
-    state[:sender_friends] = 2
+    # state[:receiver] = receiver_user_list[1]
+    # state[:sent_requests] = 3
+    # state[:sender_friends] = 2
     checkstate(state)           
 
     receiver_user_list[2].confirms_friendship(sender)  
-    state[:receiver] = receiver_user_list[2]
-    state[:sent_requests] = 2
-    state[:sender_friends] = 3
+    # state[:receiver] = receiver_user_list[2]
+    # state[:sent_requests] = 2
+    # state[:sender_friends] = 3
     checkstate(state)       
     
     receiver_user_list[3].confirms_friendship(sender)  
-    state[:receiver] = receiver_user_list[3]
-    state[:sent_requests] = 1
-    state[:sender_friends] = 4
+    # state[:receiver] = receiver_user_list[3]
+    # state[:sent_requests] = 1
+    # state[:sender_friends] = 4
     checkstate(state)       
 
     receiver_user_list[4].confirms_friendship(sender)  
-    state[:receiver] = receiver_user_list[4]
-    state[:sent_requests] = 0
-    state[:sender_friends] = 5
+    # state[:receiver] = receiver_user_list[4]
+    # state[:sent_requests] = 0
+    # state[:sender_friends] = 5
     checkstate(state)       
     
   end
@@ -181,37 +182,37 @@ RSpec.describe 'User-Friendship', type: :feature do
     checkstate(state)
 
     receiver.confirms_friendship(sender_user_list[0])      
-    state[:sender] = sender_user_list[0]    
-    state[:request_sent_to_receiver] = false    
-    state[:are_friends] = true
-    state[:sent_requests] = 0
-    state[:received_requests] = 4
-    state[:sender_friends] = 1
-    state[:receiver_friends] = 1    
+    # state[:sender] = sender_user_list[0]    
+    # state[:request_sent_to_receiver] = false    
+    # state[:are_friends] = true
+    # state[:sent_requests] = 0
+    # state[:received_requests] = 4
+    # state[:sender_friends] = 1
+    # state[:receiver_friends] = 1    
     checkstate(state)    
 
     receiver.confirms_friendship(sender_user_list[1])   
-    state[:sender] = sender_user_list[1]
-    state[:received_requests] = 3
-    state[:receiver_friends] = 2
+    # state[:sender] = sender_user_list[1]
+    # state[:received_requests] = 3
+    # state[:receiver_friends] = 2
     checkstate(state)    
 
     receiver.confirms_friendship(sender_user_list[2])   
-    state[:sender] = sender_user_list[2]
-    state[:received_requests] = 2
-    state[:receiver_friends] = 3
+    # state[:sender] = sender_user_list[2]
+    # state[:received_requests] = 2
+    # state[:receiver_friends] = 3
     checkstate(state)  
 
     receiver.confirms_friendship(sender_user_list[3])   
-    state[:sender] = sender_user_list[3]
-    state[:received_requests] = 1
-    state[:receiver_friends] = 4
+    # state[:sender] = sender_user_list[3]
+    # state[:received_requests] = 1
+    # state[:receiver_friends] = 4
     checkstate(state)  
 
     receiver.confirms_friendship(sender_user_list[4])   
-    state[:sender] = sender_user_list[4]
-    state[:received_requests] = 0
-    state[:receiver_friends] = 5
+    # state[:sender] = sender_user_list[4]
+    # state[:received_requests] = 0
+    # state[:receiver_friends] = 5
     checkstate(state)  
 
   end

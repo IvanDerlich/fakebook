@@ -15,6 +15,8 @@ module User_and_Frienship_helpers
       f.user == state[:sender] and f.friend == state[:receiver]
     }  
     if state[:request_sent_to_receiver]  
+      state[:sender].reload
+      state[:receiver].reload 
       expect(state[:sender].requests_sent.include?(state[:receiver])).to eq(true)
       expect(state[:receiver].requests_received.include?(state[:sender])).to eq(true)        
       
