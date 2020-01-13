@@ -1,0 +1,15 @@
+<% if object[:users].empty? %>
+  <div> 
+    <p>You haven't <%= object[:word] %> any friendship request yet.</p>
+  </div>
+<% else %>
+  <% object[:users].each do |user| %>
+  <li class="mb-2 border-bottom">
+    <% if object[:word] == 'sent' %>
+      <%= user.first_name %> sent you a friendship request.
+    <% else %>
+      You have received a friendship request from <%= user.first_name %>
+    <% end %>
+  </li>
+  <% end %>
+<% end %>
