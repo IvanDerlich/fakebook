@@ -14,19 +14,19 @@ class Friendship < ApplicationRecord
 
   def not_to_yourself    
     if self.user == self.friend 
-      errors.add(:base, 'You cannot send friend requests to yourself') 
+      errors.add(:not_to_itself, '# You cannot send friend requests to yourself') 
     end
   end
 
   def already_received    
     if Friendship.exists?(user_id: friend_id, friend_id: user_id )
-      errors.add(:base, 'You have already received a friend request from that user')
+      errors.add(:already_received, '# You have already received a friend request from that user')
     end
   end
 
   def already_sent 
     if Friendship.exists?(user_id: user_id, friend_id: friend_id )
-      errors.add(:base, 'You have already sent a friend request to that user')
+      errors.add(:already_sent, '# You have already sent a friend request to that user')
     end      
   end
  

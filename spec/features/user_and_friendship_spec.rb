@@ -35,7 +35,6 @@ RSpec.describe 'User-Friendship', type: :feature do
     })  
     checkstate(state)        
     
-    byebug
     receiver.confirms_friendship(sender)   
 
     state.merge!({
@@ -49,21 +48,24 @@ RSpec.describe 'User-Friendship', type: :feature do
     checkstate(state)
   end 
 
-  xit "# Invalid friend request: user sends a request to itself" do    
-    error = sender.requests_friendship(sender)[0][0]    
-    expect(error).to eq('You cannot send friend requests to yourself')
+  scenario "# Invalid friend request: user sends a request to itself" do       
+    sender.requests_friendship(sender)
+    error = sender.errors.messages[:not_to_itself][0][0]
+    expect(error).to eq('# You cannot send friend requests to yourself')
   end
 
-  xit "# Invalid friend request: Already sent" do
+  scenario "# Invalid friend request: Already sent" do    
     sender.requests_friendship(receiver)
-    error = sender.requests_friendship(receiver)[0][0]
-    expect(error).to eq('You have already sent a friend request to that user')
+    sender.requests_friendship(receiver)    
+    error = sender.errors.messages[:already_sent][0][0]
+    expect(error).to eq('# You have already sent a friend request to that user')
   end
 
-  xit "# Invalid friend request: Already received" do
+  scenario "# Invalid friend request: Already received" do
+    receiver.requests_friendship(sender)
     sender.requests_friendship(receiver)
-    error = receiver.requests_friendship(sender)[0][0]
-    expect(error).to eq('You have already received a friend request from that user')    
+    error = sender.errors.messages[:already_received][0][0]
+    expect(error).to eq('# You have already received a friend request from that user')    
   end  
 
   scenario "# user sends a request to 5 other users" do    
@@ -120,28 +122,40 @@ RSpec.describe 'User-Friendship', type: :feature do
     checkstate(state) 
     
 
-    receiver_user_list[1].confirms_friendship(sender)  
-    # state[:receiver] = receiver_user_list[1]
-    # state[:sent_requests] = 3
-    # state[:sender_friends] = 2
+    receiver_user_list[1].confirms_friendship(sender) 
+    state.merge!({
+      receiver: receiver_user_list[1],
+      sent_requests: 3,
+      sender_friends: 2
+    })
+
     checkstate(state)           
 
     receiver_user_list[2].confirms_friendship(sender)  
-    # state[:receiver] = receiver_user_list[2]
-    # state[:sent_requests] = 2
-    # state[:sender_friends] = 3
+    state.merge!({
+      receiver: receiver_user_list[2],
+      sent_requests: 2,
+      sender_friends: 3
+    })
+    
     checkstate(state)       
     
     receiver_user_list[3].confirms_friendship(sender)  
-    # state[:receiver] = receiver_user_list[3]
-    # state[:sent_requests] = 1
-    # state[:sender_friends] = 4
+    state.merge!(
+      receiver: receiver_user_list[3],
+      sent_requests: 1,
+      sender_friends: 4
+    )
+    
     checkstate(state)       
 
     receiver_user_list[4].confirms_friendship(sender)  
-    # state[:receiver] = receiver_user_list[4]
-    # state[:sent_requests] = 0
-    # state[:sender_friends] = 5
+    state.merge!(
+      receiver: receiver_user_list[4],
+      sent_requests: 0,
+      sender_friends: 5
+    )
+     
     checkstate(state)       
     
   end
@@ -196,27 +210,37 @@ RSpec.describe 'User-Friendship', type: :feature do
     checkstate(state)    
 
     receiver.confirms_friendship(sender_user_list[1])   
-    # state[:sender] = sender_user_list[1]
-    # state[:received_requests] = 3
-    # state[:receiver_friends] = 2
+    state.merge!(
+      sender: sender_user_list[1],
+      received_requests: 3,
+      receiver_friends: 2
+    )
+    
     checkstate(state)    
 
     receiver.confirms_friendship(sender_user_list[2])   
-    # state[:sender] = sender_user_list[2]
-    # state[:received_requests] = 2
-    # state[:receiver_friends] = 3
+    state.merge!({
+      sender: sender_user_list[2],
+      received_requests: 2,
+      receiver_friends: 3
+    })
+    
     checkstate(state)  
 
     receiver.confirms_friendship(sender_user_list[3])   
-    # state[:sender] = sender_user_list[3]
-    # state[:received_requests] = 1
-    # state[:receiver_friends] = 4
+    state.merge!({
+      sender: sender_user_list[3],
+      received_requests: 1,
+      receiver_friends: 4
+    })
     checkstate(state)  
 
     receiver.confirms_friendship(sender_user_list[4])   
-    # state[:sender] = sender_user_list[4]
-    # state[:received_requests] = 0
-    # state[:receiver_friends] = 5
+    state.merge!({
+      sender: sender_user_list[4],
+      received_requests: 0,
+      receiver_friends: 5
+    })
     checkstate(state)  
 
   end

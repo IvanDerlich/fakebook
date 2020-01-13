@@ -46,16 +46,18 @@ class User < ApplicationRecord
 
     friendship = sent_friendships.new(
       friend: receiver
-    )          
-    if friendship.valid?      
-      friendship.save   
-    else      
+    )
+    if friendship.valid?
+      friendship.save
+    else
+      #puts "false"    
       # <comment> Improvement opportunity Nº2
       errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])# if friendship.errors.messages[:not_to_itself]
       errors.add(:already_received, friendship.errors.messages[:already_received])# if friendship.errors.messages[:already_received]
-      # errors.add(:already_sent, friendship.errors.messages[:already_sent]) if friendship.errors.messages[:already_sent]
+      errors.add(:already_sent, friendship.errors.messages[:already_sent])# if friendship.errors.messages[:already_sent]    
       # </comment>
-    end 
+      false
+    end
   end 
 
   def friend?(user)
