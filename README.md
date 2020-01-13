@@ -4,9 +4,9 @@
 
 ## Resorces
 
-[Microverse](https://microverse.pathwright.com/library/fast-track-curriculum/69047/path/step/49736080/)
+[Microverse](https://microverse.pathwright.com/library/fast-track-curriculum/69047/path/step/49736080/))(Need Microverse access privilege to access this link)
 
-[Odin Project](https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project)
+[Odin ](https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project)
 
 ## Collaborators
 
