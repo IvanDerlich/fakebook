@@ -15,9 +15,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
-  has_many :sent_friendships , :class_name => "Friendship", :foreign_key => "user_id"
-  has_many :received_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-
+  has_many :sent_friendships, class_name: 'Friendship', foreign_key: 'user_id'
+  has_many :received_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
 
   def comments_post(post, text)
     comments.create!(
@@ -32,50 +31,48 @@ class User < ApplicationRecord
     )
   end
 
-  def confirms_friendship(user)    
-    friendship = received_friendships.find do |friendship| 
+  def confirms_friendship(user)
+    friendship = received_friendships.find do |friendship|
       friendship.user == user &&
-      friendship.confirmed == false
-    end          
-    # <comment> Improvement opportunity Nº1 </comment>
+        friendship.confirmed == false
+    end
+    # <comment> Improvement opportunity N#1 </comment>
     friendship.confirmed = true
     friendship.save
   end
 
   def requests_friendship(receiver)
-
     friendship = sent_friendships.new(
       friend: receiver
     )
     if friendship.valid?
       friendship.save
     else
-      #puts "false"    
-      # <comment> Improvement opportunity Nº2
-      errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])# if friendship.errors.messages[:not_to_itself]
-      errors.add(:already_received, friendship.errors.messages[:already_received])# if friendship.errors.messages[:already_received]
-      errors.add(:already_sent, friendship.errors.messages[:already_sent])# if friendship.errors.messages[:already_sent]    
+      # puts "false"
+      # <comment> Improvement opportunity N#2
+      errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])
+      errors.add(:already_received, friendship.errors.messages[:already_received])
+      errors.add(:already_sent, friendship.errors.messages[:already_sent])
       # </comment>
       false
     end
-  end 
+  end
 
   def friend?(user)
     friends.include?(user) # && user.include?(self)
-  end 
-  
+  end
+
   def friends
-    friends_array = sent_friendships.map{ |friendship| friendship.friend if friendship.confirmed }
-    friends_array += received_friendships.map{ |friendship| friendship.user if friendship.confirmed }    
+    friends_array = sent_friendships.map { |friendship| friendship.friend if friendship.confirmed }
+    friends_array += received_friendships.map { |friendship| friendship.user if friendship.confirmed }
     friends_array.compact
   end
 
   def requests_sent
-    sent_friendships.map{ |friendship| friendship.friend unless friendship.confirmed }.compact
-  end   
+    sent_friendships.map { |friendship| friendship.friend unless friendship.confirmed }.compact
+  end
 
   def requests_received
-    received_friendships.map{ |friendship| friendship.user unless friendship.confirmed }.compact
-  end  
-   
+    received_friendships.map { |friendship| friendship.user unless friendship.confirmed }.compact
+  end
 end

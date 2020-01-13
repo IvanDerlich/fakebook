@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module UsersHelper
-
   def friendship_requested_pending?(friend)
     @unconfirmed_sent_friendships.include?(friend)
     # return confirm friendship, pending or request friendship, also Friends as a text
