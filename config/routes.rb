@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
   
   get 'dashboard', to: 'users#show'
+  get 'notifications', to: 'notifications#show'
 
   resources :posts do
     resources :comments, skip: [:index, :new]
