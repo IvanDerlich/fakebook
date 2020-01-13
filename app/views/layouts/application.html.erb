@@ -16,7 +16,7 @@
     </header>
     <main  role="main" class="container h-150">
       <% flash.each do |message_type, message| %>
-          <div class="alert alert-<%= message_type %>"><%= message %></div>
+          <div class="alert alert-<%= message_type %> p-0"><%= message %></div>
         <% end %>
       <%= yield %>
     </main>
