@@ -32,7 +32,7 @@ class User < ApplicationRecord
     )
   end
 
-  def confirms_friendship(user)
+  def confirms_friendship(user)    
     friendship = received_friendships.find do |friendship| 
       friendship.user == user &&
       friendship.confirmed == false

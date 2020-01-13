@@ -35,7 +35,9 @@ RSpec.describe 'User-Friendship', type: :feature do
     })  
     checkstate(state)        
     
-    receiver.confirms_friendship(sender)    
+    byebug
+    receiver.confirms_friendship(sender)   
+
     state.merge!({
       request_sent_to_receiver: false,
       are_friends: true,
@@ -181,14 +183,16 @@ RSpec.describe 'User-Friendship', type: :feature do
     state[:received_requests] = 5
     checkstate(state)
 
-    receiver.confirms_friendship(sender_user_list[0])      
-    # state[:sender] = sender_user_list[0]    
-    # state[:request_sent_to_receiver] = false    
-    # state[:are_friends] = true
-    # state[:sent_requests] = 0
-    # state[:received_requests] = 4
-    # state[:sender_friends] = 1
-    # state[:receiver_friends] = 1    
+    receiver.confirms_friendship(sender_user_list[0])  
+    state.merge!(
+      sender: sender_user_list[0],
+      request_sent_to_receiver: false,   
+      are_friends: true,
+      sent_requests: 0,
+      received_requests: 4,
+      sender_friends: 1,
+      receiver_friends: 1    
+    )       
     checkstate(state)    
 
     receiver.confirms_friendship(sender_user_list[1])   

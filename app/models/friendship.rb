@@ -2,7 +2,8 @@ class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, :class_name => "User"
   validates :user_id, :friend_id, presence: true
-  validate :false_but_not_nil, :not_to_yourself, :already_sent, :already_received
+  validate :false_but_not_nil 
+  validate :not_to_yourself, :already_sent, :already_received, :on => :create
 
 
   private 
