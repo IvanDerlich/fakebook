@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     root 'posts#index', as: :authenticated_user
   end
 
-  devise_for :users, skip: [:sessions]
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }, skip: [:sessions]
   
   devise_scope :user do
     get 'sign_in', to: 'devise/sessions#new', as: :new_user_session
@@ -25,5 +25,4 @@ Rails.application.routes.draw do
 
   get 'users', to: 'users#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  # root 'posts#index'
 end
