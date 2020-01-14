@@ -36,7 +36,6 @@ class User < ApplicationRecord
       friendship.user == user &&
         friendship.confirmed == false
     end
-    # <comment> Improvement opportunity N#1 </comment>
     friendship.confirmed = true
     friendship.save
   end
