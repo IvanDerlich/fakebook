@@ -4,8 +4,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  validates :first_name, :last_name, :email, :phone_number, presence: true
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
+  validates :first_name, :email, presence: true
   validates :first_name, length: { minimum: 2 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email,
@@ -17,6 +17,22 @@ class User < ApplicationRecord
   has_many :likes
   has_many :sent_friendships, class_name: 'Friendship', foreign_key: 'user_id'
   has_many :received_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.first_name = auth.info.name
+    end
+  end
+
+  def new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
 
   def comments_post(post, text)
     comments.create!(
