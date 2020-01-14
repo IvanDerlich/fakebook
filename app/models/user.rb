@@ -32,9 +32,9 @@ class User < ApplicationRecord
   end
 
   def confirms_friendship(user)
-    friendship = received_friendships.find do |friendship|
-      friendship.user == user &&
-        friendship.confirmed == false
+    friendship = received_friendships.find do |item|
+      item.user == user &&
+        item.confirmed == false
     end
     friendship.confirmed = true
     friendship.save
@@ -46,7 +46,7 @@ class User < ApplicationRecord
     )
     if friendship.valid?
       friendship.save
-    else      
+    else
       errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])
       errors.add(:already_received, friendship.errors.messages[:already_received])
       errors.add(:already_sent, friendship.errors.messages[:already_sent])
