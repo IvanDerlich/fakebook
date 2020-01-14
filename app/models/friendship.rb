@@ -14,7 +14,9 @@ class Friendship < ApplicationRecord
   end
 
   def not_to_yourself
-    errors.add(:not_to_itself, '# You cannot send friend requests to yourself') if user == friend
+    return unless user == friend
+
+    errors.add(:not_to_itself, '# You cannot send friend requests to yourself')
   end
 
   def already_received
