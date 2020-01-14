@@ -1,6 +1,6 @@
 # TheNewFacebook
 
-    A brief description of what this project is about
+    This project is about building a facebook replica with just the core functionality: basic user functionality plus posting, commenting and adding friends
 
 ## Resources
 
