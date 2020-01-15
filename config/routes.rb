@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     root 'devise/sessions#new'
   end
   
-  get 'dashboard', to: 'users#show'
+  get 'dashboard', to: 'users#dashboard'
   get 'notifications', to: 'notifications#show'
 
   resources :posts do
@@ -24,5 +24,8 @@ Rails.application.routes.draw do
   put 'friendships/confirms_friend/:friend_id', to: 'friendships#update', as: :friendship_confirm
 
   get 'users', to: 'users#index'
+  get 'users/:id', to: 'users#show', as: :user
+  #resources :users, only: [:show]
+  #get 'users/:id', to 'users#'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

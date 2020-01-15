@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module OmniauthHelper
   def stub_omniauth
     OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+    OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
       provider: 'Facebook',
       uid: '1234567',
       info: {
@@ -12,9 +14,9 @@ module OmniauthHelper
       },
       credentials: {
         token: 'abcdefg12345', # OAuth 2.0 access_token, which you may wish to store
-        expires_at: 1321747205, # when the access token expires (it always will)
+        expires_at: 1_321_747_205, # when the access token expires (it always will)
         expires: true # this will always be true
       }
-    })
+    )
   end
 end

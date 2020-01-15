@@ -29,8 +29,8 @@ class User < ApplicationRecord
 
   def new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+      if (data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info'])
+        user.email = data['email'] if user.email.blank?
       end
     end
   end
@@ -49,11 +49,10 @@ class User < ApplicationRecord
   end
 
   def confirms_friendship(user)
-    friendship = received_friendships.find do |friendship|
-      friendship.user == user &&
-        friendship.confirmed == false
+    friendship = received_friendships.find do |item|
+      item.user == user &&
+        item.confirmed == false
     end
-    # <comment> Improvement opportunity N#1 </comment>
     friendship.confirmed = true
     friendship.save
   end
@@ -65,12 +64,9 @@ class User < ApplicationRecord
     if friendship.valid?
       friendship.save
     else
-      # puts "false"
-      # <comment> Improvement opportunity N#2
       errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])
       errors.add(:already_received, friendship.errors.messages[:already_received])
       errors.add(:already_sent, friendship.errors.messages[:already_sent])
-      # </comment>
       false
     end
   end

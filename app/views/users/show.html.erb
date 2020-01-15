@@ -1,10 +1,5 @@
-<section>
-  <h2 class="h5">My posts</h2>
-  <% if !@posts.empty? %>
-    <%= render 'posts/post' %>
-  <% else %>
-    <div>
-      <span>There aren't posts to show</span>
-    </div> 
-  <% end %>
-</section>
+<h1>User Data</h1>
+<p>First Name: <%= @user.first_name%></p>
+<p>Last Name: <%= @user.last_name%></p>
+<p>E-mail:<%= @user.email%></p>
+<p>Id: <%= @user.id %></p>

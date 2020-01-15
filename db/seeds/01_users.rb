@@ -1,5 +1,5 @@
 49.times do |n|      
-  password = "password123"
+  password = "foobar"
 
   User.create!(
       first_name:  Faker::Name.first_name,
