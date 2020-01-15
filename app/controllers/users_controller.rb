@@ -13,4 +13,8 @@ class UsersController < ApplicationController
     @unconfirmed_sent_friendships = current_user.requests_sent
     @requests_received = current_user.requests_received
   end
+
+  def show
+    @user = User.find(params[:id])
+  end
 end
