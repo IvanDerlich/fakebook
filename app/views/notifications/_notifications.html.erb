@@ -6,9 +6,9 @@
   <% object[:users].each do |user| %>
   <li class="mb-2 border-bottom">
     <% if object[:word] == 'sent' %>
-      <%= user.first_name %> sent you a friendship request.
+      You have sent a friendship request to <%= link_to user.first_name, "users/" + user.id.to_s %> 
     <% else %>
-      You have received a friendship request from <%= user.first_name %>
+       <%= link_to user.first_name, "users/" + user.id.to_s %> sent you a friendship request.
     <% end %>
   </li>
   <% end %>
