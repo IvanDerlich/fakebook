@@ -7,7 +7,7 @@
     <%= link_to 'Notifications', notifications_path, class: 'p-2 text-dark' %>
     <%= link_to "My posts", dashboard_path, class: "p-2 text-dark" %>
     <%= link_to "Create Post", new_post_path, class: "p-2 text-dark" %>
-    <%= link_to "Profile", "#", class: "p-2 text-dark" %>
+    <%= link_to "Profile", edit_user_registration_path, class: "p-2 text-dark" %>
     <%= link_to "Log out", sign_out_path, class: "btn btn-outline-secondary p-2 text-dark", id: "logout", method: :delete %>
     <% else %>
     <%= link_to "Log in", new_user_session_path, class: "p-2 text-dark" %>
