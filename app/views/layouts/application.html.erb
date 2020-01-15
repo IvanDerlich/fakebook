@@ -7,9 +7,18 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   </head>
 
   <body>
-    <%= yield %>
+    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <%= render 'layouts/header' %>
+    </header>
+    <main  role="main" class="container h-150">
+      <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %> p-0"><%= message %></div>
+        <% end %>
+      <%= yield %>
+    </main>
   </body>
 </html>

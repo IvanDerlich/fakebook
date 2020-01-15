@@ -1,0 +1,13 @@
+<section class="p-2"> 
+  <h1>Notifications</h1>
+  <div class="p-2">
+    <ul class="list-unstyled">
+      <div class="mb-4"> 
+        <%= render 'notifications', object: { users: @received_requests, word: "received" } %> 
+      </div>
+      <div class="mb-4"> 
+        <%= render 'notifications', object: { users: @sent_requests, word: "sent" } %>
+      </div>
+    </ul>
+  </div>
+</section>

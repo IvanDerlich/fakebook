@@ -7,10 +7,9 @@ AllCops:
     - "Rakefile"
     - "Gemfile"
     - "node_modules/**/*"
-
   DisplayCopNames: true
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
   Include: ["app/controllers/*"]
