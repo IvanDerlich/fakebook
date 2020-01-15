@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[show index]
 
-  def show
+  def dashboard
     @posts = current_user.posts.order('created_at desc')
     @comment = Comment.new
   end
