@@ -8,14 +8,14 @@
     <div class="row border-bottom pb-3">
       <% if object[:word] == 'sent' %>
       <div class="col-4 d-flex align-items-center">
-        You have sent a friendship request to <%= link_to user.first_name, "users/" + user.id.to_s %> 
+        You have sent a friendship request to <%= link_to user.first_name, user, class: 'ml-2' %>
       </div>
       <div class="col-3">
         <div class="btn btn-warning btn-small w-100">Pending</div>
       </div>
       <% else %>
       <div class="col-4 d-flex align-items-center">
-        <%= link_to user.first_name, "users/" + user.id.to_s%> sent you a friendship request.
+        <%= link_to user.first_name, user, class: 'mr-2' %> sent you a friendship request.
       </div>
       <div class="col-3">
         <%= link_to "Confirm Friendship", friendship_confirm_path(user), class: 'btn btn-success btn-small w-100', method: :put %>
