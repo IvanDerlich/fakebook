@@ -26,7 +26,7 @@ class Friendship < ApplicationRecord
   end
 
   def already_sent
-    return unless Friendship.exists?(user_id: user_id, friend_id: friend_id,confirmed: false)
+    return unless Friendship.exists?(user_id: user_id, friend_id: friend_id, confirmed: false)
 
     errors.add(:already_sent, '# You have already sent a friend request to that user')
   end
