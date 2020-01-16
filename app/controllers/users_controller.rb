@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[show index]
 
   def dashboard
-    @posts = current_user.posts.order('created_at desc')
+    timeline_posts
     @comment = Comment.new
   end
 
