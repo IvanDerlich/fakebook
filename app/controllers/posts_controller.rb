@@ -4,7 +4,8 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[index new create destroy]
 
   def index
-    @posts = Post.all.order('created_at desc')
+    @posts = current_user.posts.recent_posts
+    @friends = current_user.friends
     @comment = Comment.new
   end
 
