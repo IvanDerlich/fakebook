@@ -13,16 +13,15 @@ RSpec.describe 'User-Friendship', type: :feature do
   let(:sender_user_list) { FactoryBot.create_list(:random_user, 2) }
 
   scenario '# one to one friending process' do
-    state = {
-      sender: sender, receiver: receiver,
-      request_sent_to_receiver: false,
-      are_friends: false,
-      sent_requests: 0,
-      received_requests: 0,
-      sender_friends: 0,
-      receiver_friends: 0
-    }
-    checkstate(state)
+    checkstate(state = {
+                 sender: sender, receiver: receiver,
+                 request_sent_to_receiver: false,
+                 are_friends: false,
+                 sent_requests: 0,
+                 received_requests: 0,
+                 sender_friends: 0,
+                 receiver_friends: 0
+               })
 
     sender.requests_friendship(receiver)
     checkstate(state.merge!(
@@ -31,6 +30,7 @@ RSpec.describe 'User-Friendship', type: :feature do
                  received_requests: 1
                ))
 
+    #               byebug
     receiver.confirms_friendship(sender)
     checkstate(state.merge!(
                  request_sent_to_receiver: false,
@@ -62,11 +62,18 @@ RSpec.describe 'User-Friendship', type: :feature do
     expect(error).to eq('# You have already received a friend request from that user')
   end
 
+  scenario '# Invalid friend request: Already friends' do
+    sender.requests_friendship(receiver)
+    receiver.confirms_friendship(sender)
+    sender.requests_friendship(receiver)
+    error = sender.errors.messages[:already_friends][0][0]
+    expect(error).to eq('# You are already a friend of that user')
+  end
+
   scenario '# user sends a request to 2 other users' do
-    state = {
-      sender: sender, sent_requests: 0, sender_friends: 0
-    }
-    checkstate(state)
+    checkstate(state = {
+                 sender: sender, sent_requests: 0, sender_friends: 0
+               })
 
     sender.requests_friendship(receiver_user_list[0])
 
@@ -97,10 +104,9 @@ RSpec.describe 'User-Friendship', type: :feature do
   end
 
   scenario '# user receives requests from 2 different users' do
-    state = {
-      receiver: receiver, received_requests: 0, receiver_friends: 0
-    }
-    checkstate(state)
+    checkstate(state = {
+                 receiver: receiver, received_requests: 0, receiver_friends: 0
+               })
 
     sender_user_list[0].requests_friendship(receiver)
     checkstate(state.merge!(

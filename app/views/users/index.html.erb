@@ -7,7 +7,7 @@
           <li>
             <div class="row border-bottom pb-3">
               <div class="col-3 d-flex align-items-center">
-                @<%= u.first_name %> <%= u.last_name %>
+                <%= link_to "@" + u.first_name + " " + u.last_name, "users/" + u.id.to_s %>
               </div>
               <div class="col-3">
                 <% if friendship_requested_pending?(u) %>
