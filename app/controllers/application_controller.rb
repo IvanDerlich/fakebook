@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name phone_number])
     devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name phone_number])
   end
+
+  def timeline_posts
+    @posts = current_user.posts.recent_posts
+    @friends = current_user.friends
+  end
 end

@@ -55,6 +55,12 @@ class User < ApplicationRecord
     end
     friendship.confirmed = true
     friendship.save
+    Friendship.create!(
+      user: self,
+      friend: user,
+      confirmed: true,
+      mirror: true
+    )
   end
 
   def requests_friendship(receiver)
@@ -67,17 +73,22 @@ class User < ApplicationRecord
       errors.add(:not_to_itself, friendship.errors.messages[:not_to_itself])
       errors.add(:already_received, friendship.errors.messages[:already_received])
       errors.add(:already_sent, friendship.errors.messages[:already_sent])
+      errors.add(:already_friends, friendship.errors.messages[:already_friends])
       false
     end
   end
 
   def friend?(user)
-    friends.include?(user) # && user.include?(self)
+    friends.include?(user)
   end
 
   def friends
-    friends_array = sent_friendships.map { |friendship| friendship.friend if friendship.confirmed }
-    friends_array += received_friendships.map { |friendship| friendship.user if friendship.confirmed }
+    friends_array = sent_friendships.map do |friendship|
+      friendship.friend if friendship.confirmed && (friendship.mirror == false)
+    end
+    friends_array += received_friendships.map do |friendship|
+      friendship.user if friendship.confirmed && (friendship.mirror == false)
+    end
     friends_array.compact
   end
 
