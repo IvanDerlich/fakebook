@@ -5,7 +5,7 @@
     <%if user_signed_in? %>
     <%= link_to "Users", users_path, class: "p-2 text-dark" %>
     <%= link_to 'Notifications ('+ friend_requests_count().to_s + ")", notifications_path, class: 'p-2 text-dark' %>
-    <%= link_to "My posts", dashboard_path, class: "p-2 text-dark" %>
+    <%= link_to "Dashboard", dashboard_path, class: "p-2 text-dark" %>
     <%= link_to "Create Post", new_post_path, class: "p-2 text-dark" %>
     <%= link_to "Profile", users_path + "/" + current_user.id.to_s, class: "p-2 text-dark" %>
     <%= link_to "Log out", sign_out_path, class: "btn btn-outline-secondary p-2 text-dark", id: "logout", method: :delete %>
