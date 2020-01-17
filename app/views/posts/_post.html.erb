@@ -1,4 +1,4 @@
-<% object[:posts].each do |post| %>
+<% object.each do |post| %>
   <article class="p-2 border rounded mb-3">
     <p class="m-0 pl-2 pr-0">Author: <%= post.user.first_name %> shared a post</p>
     <p class="small pl-2 pr-0"><%= post.created_at.to_date %> at <%= post.created_at.hour %>:<%= post.created_at.min %></p>
