@@ -1,7 +1,7 @@
 <section>
   <h2 class="h5">My posts</h2>
-  <% if !@posts.empty? %>
-    <%= render 'posts/post' %>
+  <% unless @posts.empty? %>
+    <%= render 'posts/post', object: { posts: @posts} %>    
   <% else %>
     <div>
       <span>There aren't posts to show</span>
