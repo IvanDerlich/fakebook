@@ -1,10 +1,4 @@
 <section>
   <h2 class="h5">My posts</h2>
-  <% if !@posts.empty? %>
-    <%= render 'posts/post' %>
-  <% else %>
-    <div>
-      <span>There aren't posts to show</span>
-    </div> 
-  <% end %>
+  <%= render 'posts/posts_list' %>
 </section>
