@@ -297,6 +297,7 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
   
-  
-  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"], scope: 'public_profile,email', info_fields: 'email,first_name,last_name,location'
+  config.scoped_views = true
+  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"], scope: 'public_profile,email', info_fields: 'email,first_name,last_name,location',
+  callback_url: "https://afternoon-wave-75260.herokuapp.com//auth/facebook/callback"
 end
