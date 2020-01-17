@@ -1,23 +1,23 @@
 <% if !@users.empty? %>
   <section>
     <h2 class="h4">Users list</h2>
-    <% @users.each do |u| %>
+    <% @users.each do |user| %>
       <ul class="list-unstyled">
-        <% if u != current_user%>
+        <% if user != current_user%>
           <li>
             <div class="row border-bottom pb-3">
               <div class="col-3 d-flex align-items-center">
-                <%= link_to "@" + u.first_name + " " + u.last_name, "users/" + u.id.to_s %>
+                <%= link_to "@" + user.first_name + " " + user.last_name, user %>
               </div>
               <div class="col-3">
-                <% if friendship_requested_pending?(u) %>
+                <% if friendship_requested_pending?(user) %>
                   <div class="btn btn-warning btn-small w-100">Pending</div>
-                <% elsif friendship_unconfirmed?(u) %>
-                  <%= link_to "Confirm Friendship", friendship_confirm_path(u), class: 'btn btn-success btn-small w-100', method: :put %>
-                <% elsif current_user.friend?(u) %>
+                <% elsif friendship_unconfirmed?(user) %>
+                  <%= link_to "Confirm Friendship", friendship_confirm_path(user), class: 'btn btn-success btn-small w-100', method: :put %>
+                <% elsif current_user.friend?(user) %>
                   <div class="btn btn-success btn-small w-100">Friends</div>
                 <% else %>
-                  <%= link_to "Send Friendship Request", new_friendship_path(user: u), class: 'btn btn-primary btn-small w-100' %>
+                  <%= link_to "Send Friendship Request", new_friendship_path(user: user), class: 'btn btn-primary btn-small w-100' %>
                 <% end %>
               </div>
             </div>
