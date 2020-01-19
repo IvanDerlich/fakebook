@@ -1,5 +1,8 @@
-<h1>User Data</h1>
-<p>First Name: <%= @user.first_name%></p>
-<p>Last Name: <%= @user.last_name%></p>
-<p>E-mail:<%= @user.email%></p>
-<p>Id: <%= @user.id %></p>
+<section class="p-2">
+  <h1>User Data</h1>
+  <p>First Name: <%= @user.first_name%></p>
+  <p>Last Name: <%= @user.last_name%></p>
+  <p>E-mail:<%= @user.email%></p>
+  <p>Id: <%= @user.id %></p>
+  <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary' %>
+</section>

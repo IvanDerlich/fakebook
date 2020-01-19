@@ -1,29 +1,10 @@
-<% if !@users.empty? %>
-  <section>
-    <h2 class="h4">Users list</h2>
-    <% @users.each do |u| %>
-      <ul class="list-unstyled">
-        <% if u != current_user%>
-          <li>
-            <div class="row border-bottom pb-3">
-              <div class="col-3 d-flex align-items-center">
-                <%= link_to "@" + u.first_name + " " + u.last_name, "users/" + u.id.to_s %>
-              </div>
-              <div class="col-3">
-                <% if friendship_requested_pending?(u) %>
-                  <div class="btn btn-warning btn-small w-100">Pending</div>
-                <% elsif friendship_unconfirmed?(u) %>
-                  <%= link_to "Confirm Friendship", friendship_confirm_path(u), class: 'btn btn-success btn-small w-100', method: :put %>
-                <% elsif current_user.friend?(u) %>
-                  <div class="btn btn-success btn-small w-100">Friends</div>
-                <% else %>
-                  <%= link_to "Send Friendship Request", new_friendship_path(user: u), class: 'btn btn-primary btn-small w-100' %>
-                <% end %>
-              </div>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% end %> 
-  </section>
-<% end %>
+<section>
+  <h2 class="h4">Friends</h2>
+  <%= render 'friends', object: {users: @friends} unless @friends.empty? %> 
+  <h2 class="h4">Users you have sent a request to</h2>  
+  <%= render 'friends', object: {users: @receiver_users} unless @receiver_users.empty? %> 
+  <h2 class="h4">Users you have received a request from</h2>
+  <%= render 'friends', object: {users: @sender_users} unless @sender_users.empty? %> 
+  <h2 class="h4">Rest of the users</h2>
+  <%= render 'friends', object: {users: @rest_of_users} unless @rest_of_users.empty? %> 
+</section>

@@ -1,18 +1,5 @@
 <section>
   <h2 class="h3">Share something <span class="text-dark"><%= current_user.first_name %></span></h2>
   <h2 class="h4">All posts</h2>
-  <% if !@friends.empty? %>
-    <% @friends.each do |friend| %>
-      <% if !friend.posts.recent_posts.empty? %>
-        <%= render 'posts/post', object: friend.posts.recent_posts %>
-      <% end %>
-    <% end %>
-  <% end %>
-  <% if !@posts.empty? %>
-    <%= render 'posts/post', object: @posts %>
-  <% else %>
-    <div>
-      <span>There aren't posts to show</span>
-    </div> 
-  <% end %>
+  <%= render 'posts/posts_list' %>
 </section>
