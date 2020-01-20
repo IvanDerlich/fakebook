@@ -1,0 +1,10 @@
+<section>
+  <h2 class="h4">Friends</h2>
+  <%= render 'friends', object: {users: @friends} unless @friends.empty? %> 
+  <h2 class="h4">Users you have sent a request to</h2>  
+  <%= render 'friends', object: {users: @receiver_users} unless @receiver_users.empty? %> 
+  <h2 class="h4">Users you have received a request from</h2>
+  <%= render 'friends', object: {users: @sender_users} unless @sender_users.empty? %> 
+  <h2 class="h4">Rest of the users</h2>
+  <%= render 'friends', object: {users: @rest_of_users} unless @rest_of_users.empty? %> 
+</section>
