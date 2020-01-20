@@ -6,7 +6,7 @@ default: &default
   public_root_path: public
   public_output_path: packs
   cache_path: tmp/cache/webpacker
-  check_yarn_integrity: true
+  check_yarn_integrity: false
   webpack_compile_output: true
 
   # Additional paths webpack should lookup modules
@@ -86,10 +86,10 @@ test:
 production:
   <<: *default
 
+  check_yarn_integrity: false
+
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
-
-  check_yarn_integrity: false
 
   # Extract and emit a css file
   extract_css: true
