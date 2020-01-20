@@ -21,7 +21,6 @@ RSpec.describe User, type: :model do
     expect(user.errors[:first_name]).to include("can't be blank")
     expect(user.errors[:last_name]).to include("can't be blank")
     expect(user.errors[:email]).to include("can't be blank")
-    expect(user.errors[:phone_number]).to include("can't be blank")
   end
 
   it 'valid post association' do

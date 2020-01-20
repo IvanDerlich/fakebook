@@ -300,3 +300,4 @@ Devise.setup do |config|
   config.scoped_views = true
   config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"], scope: 'public_profile,email', info_fields: 'email,first_name,last_name,location'
 end
+
