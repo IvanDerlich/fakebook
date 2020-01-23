@@ -1,6 +1,10 @@
 # TheNewFacebook
 
-    This project is about building a facebook replica with just the core functionality: basic user functionality plus posting, commenting and adding friends.
+This project is about building a facebook replica with just the core functionality: basic user functionality plus posting, commenting and adding friends.
+
+# Live version
+
+[Here](https://afternoon-wave-75260.herokuapp.com/)
 
 ## Resources
 
