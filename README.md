@@ -12,10 +12,6 @@ This project is about building a facebook replica with just the core functionali
 
 [Odin ](https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project)
 
-## This is the live version
-
-[This](https://afternoon-wave-75260.herokuapp.com) is the live versio
-
 ## Collaborators
 
 [Ivan Derlich](https://github.com/IvanDerlich/) <br>
