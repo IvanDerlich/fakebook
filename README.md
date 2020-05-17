@@ -2,7 +2,22 @@
 
 This project is about building a facebook replica with just the core functionality: basic user functionality plus posting, commenting and adding friends.
 
-# Live version
+## Demo
+
+![](/docs/1.png)
+![](/docs/2.png)
+
+## Instalation
+
+  Clone project and run:
+
+      npm install
+
+      bundle install
+
+      bundle update
+
+## Live version
 
 [Here](https://afternoon-wave-75260.herokuapp.com/)
 
