@@ -4,6 +4,7 @@ This project is about building a facebook replica with just the core functionali
 
 ## Demo
 
+![](docs/usage.gif)
 ![](/docs/1.png)
 ![](/docs/2.png)
 
