@@ -1,6 +1,6 @@
 # TheNewFacebook
 
-This project is about building a facebook replica with just the core functionality: basic user functionality plus posting, commenting and adding friends.
+This project is about building a Facebook replica with just the core functionality: basic user functionality plus posting, commenting, and adding friends.
 
 ## Demo
 
@@ -8,7 +8,7 @@ This project is about building a facebook replica with just the core functionali
 ![](/docs/1.png)
 ![](/docs/2.png)
 
-## Instalation
+## Installation
 
   Clone project and run:
 
