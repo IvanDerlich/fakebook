@@ -1,6 +1,13 @@
-# Alternative Social Network
+# Alternative
 
-This project is about building a Facebook replica with just the core functionality: basic user functionality plus posting, commenting, and adding friends.
+A social network with these functionalities: 
+  - User
+    - Login
+    - SignUp
+    - Recover Password
+   - Posting
+   - Commenting
+   - Adding friends.
 
 ## Demo
 
