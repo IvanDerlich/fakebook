@@ -5,6 +5,7 @@ A social network with these functionalities:
     - Login.
     - SignUp.
     - Recover Password.
+    - E-mail confirmation.
    - Posting.
    - Commenting.
    - Adding friends.
