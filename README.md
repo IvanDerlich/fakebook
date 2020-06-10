@@ -1,4 +1,4 @@
-# TheNewFacebook
+# Alternative Social Network
 
 This project is about building a Facebook replica with just the core functionality: basic user functionality plus posting, commenting, and adding friends.
 
