@@ -27,11 +27,11 @@ A social network with these functionalities:
 
 ## Live version
 
-[Here](https://afternoon-wave-75260.herokuapp.com/)
+[Here](https://afternoon-wave-75260.herokuapp.com/).
 
 ## Resources
 
-[Odin ](https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project)
+[Odin Project](https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project).
 
 ## Collaborators
 
