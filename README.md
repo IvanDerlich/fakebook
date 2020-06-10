@@ -35,5 +35,6 @@ A social network with these functionalities:
 
 ## Collaborators
 
-[Ivan Derlich](https://github.com/IvanDerlich/) <br>
-[Gabriela Cruz](https://github.com/ViriCruz/)
+[Ivan Derlich](https://github.com/IvanDerlich/).
+
+[Gabriela Cruz](https://github.com/ViriCruz/).
