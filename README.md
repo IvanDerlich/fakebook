@@ -31,8 +31,6 @@ A social network with these functionalities:
 
 ## Resources
 
-[Microverse](https://microverse.pathwright.com/library/fast-track-curriculum/69047/path/step/49736080/) -> Need Microverse access privilege to access this link.
-
 [Odin ](https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project)
 
 ## Collaborators
