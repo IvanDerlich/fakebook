@@ -1,12 +1,12 @@
 # Alternative
 
 A social network with these functionalities: 
-  - User
-    - Login
-    - SignUp
-    - Recover Password
-   - Posting
-   - Commenting
+  - User:
+    - Login.
+    - SignUp.
+    - Recover Password.
+   - Posting.
+   - Commenting.
    - Adding friends.
 
 ## Demo
