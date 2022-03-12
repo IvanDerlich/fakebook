@@ -1,20 +1,12 @@
 # Alternative
 
-A social network with these functionalities: 
-  - User:
-    - Login.
-    - SignUp.
-    - Recover Password.
-    - E-mail confirmation.
-   - Posting.
-   - Commenting.
-   - Adding friends.
+<p id="description-fakebook">A Social Network with basic functions from a real social network. Built with Ruby on Rails</p>
 
 ## Demo
 
-![](docs/usage.gif)
 ![](/docs/1.png)
 ![](/docs/2.png)
+<img src="docs/1.gif" id="main-image-fakebook" />
 
 ## Installation
 
