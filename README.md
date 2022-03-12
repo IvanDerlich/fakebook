@@ -1,4 +1,4 @@
-# Alternative
+# Description
 
 <p id="description-fakebook">A Social Network with basic functions from a real social network. Built with Ruby on Rails</p>
 
