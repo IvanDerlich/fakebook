@@ -22,6 +22,13 @@
 
 [Here](https://afternoon-wave-75260.herokuapp.com/).
 
+## Technologies used:
+
+<ul id="tech-list-fakebook">
+     <li>Ruby on Rails</li>
+     <li>Omniauth</li>
+</ul>
+
 ## Resources
 
 [Odin Project](https://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project).
